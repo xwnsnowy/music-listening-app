@@ -1,26 +1,28 @@
-import RegisterFormStepFirst from "@/components/RegisterFormStepFirst";
-import RegisterFormStepSecond from "@/components/RegisterFormStepSecond";
-import RegisterFormStepThird from "@/components/RegisterFormStepThird";
-import RegisterFormStepFourth from "@/components/RegisterFormStepFourth";
+"use client";
 
-import type { ReactElement } from "react";
+import { useAppSelector } from "@/lib/hooks";
+import {
+  RegisterFormStepFirst,
+  RegisterFormStepSecond,
+  RegisterFormStepThird,
+  // RegisterFormStepFourth,
+} from "@/components/RegisterFormSteps";
+import { type ReactElement } from "react";
+import { selectCurrentStep } from "@/lib/features/register/registerSlice";
 
-interface Props {
-  currentStep: number;
-  handleNextStep: () => void;
-}
+const RegisterForm = (): ReactElement => {
+  const currentStep = useAppSelector(selectCurrentStep);
 
-const RegisterForm = ({ currentStep, handleNextStep }: Props): ReactElement => {
   const renderForm = () => {
     switch (currentStep) {
       case 1:
-        return <RegisterFormStepFirst onNextStep={handleNextStep} />;
+        return <RegisterFormStepFirst />;
       case 2:
-        return <RegisterFormStepSecond onNextStep={handleNextStep} />;
+        return <RegisterFormStepSecond />;
       case 3:
-        return <RegisterFormStepThird onNextStep={handleNextStep} />;
-      case 4:
-        return <RegisterFormStepFourth onNextStep={handleNextStep} />;
+        return <RegisterFormStepThird />;
+      // case 4:
+      //   return <RegisterFormStepFourth />;
       default:
         return null;
     }

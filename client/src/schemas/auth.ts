@@ -1,18 +1,31 @@
-import Joi from "joi";
+import { z } from "zod";
 
-export const registerSchema = Joi.object({
-  username: Joi.string().required(),
-  password: Joi.string().min(6).required(),
-  age: Joi.number(),
-  role: Joi.string(),
-  phoneNumber: Joi.string(),
-  address: Joi.string(),
-  avatar: Joi.string(),
+// Step 1: Email Schema
+export const emailSchema = z.object({
+  email: z.string().email({ message: "Invalid email format" }).min(1).max(255),
 });
 
-export const loginSchema = Joi.object({
-  email: Joi.string()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
-  password: Joi.string()
-    .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+// Step 2: Password Schema
+export const passwordSchema = z.object({
+  password: z.string().min(3, { message: "Password must be at least 3 characters long" }).max(30, { message: "Password must be at most 30 characters long" }),
+});
+
+// Step 3: Personal Information Schema
+export const personalInfoSchema = z.object({
+  name: z.string().min(1).max(255),
+  dob: z.string(),
+  gender: z.enum(['male', 'female', 'other']),
+});
+
+// Step 4: Terms & Conditions Schema 
+export const termsAndConditionsSchema = z.object({
+  agreed: z.boolean().refine(value => value === true, { message: "You must agree to the terms and conditions" }),
+});
+
+export const loginSchema = z.object({
+  email: z.string()
+    .email({ message: "Invalid email format" }).min(1).max(255),
+  password: z.string()
+    .min(3, { message: "Password must be at least 3 characters long" })
+    .max(30, { message: "Password must be at most 30 characters long" }),
 });

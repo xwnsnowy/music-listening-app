@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAppSlice } from "@/lib/createAppSlice";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/lib/store";
 
 interface RegisterSliceState {
@@ -19,7 +20,7 @@ const initialState: RegisterSliceState = {
   gender: "",
 };
 
-export const registerSlice = createSlice({
+export const registerSlice = createAppSlice({
   name: "register",
   initialState,
   reducers: {

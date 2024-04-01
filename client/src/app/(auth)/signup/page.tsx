@@ -1,17 +1,10 @@
 // Register.tsx
-
 import { useState } from "react";
 import RegisterForm from "@/components/RegisterForm";
 import SocialMedia from "@/components/SocialMedia";
 import Link from "next/link";
 
 const Register = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
   return (
     <div className="max-w-[400px] w-full rounded-lg bg-bgBase flex flex-col items-center justify-center py-8 gap-4  font-circular">
       {/* Title Login */}
@@ -19,7 +12,7 @@ const Register = () => {
         Sign up to start listening
       </h1>
 
-      <RegisterForm currentStep={currentStep} handleNextStep={handleNextStep} />
+      <RegisterForm />
 
       {/* Signup Social Media */}
       <SocialMedia text="Sign up" />

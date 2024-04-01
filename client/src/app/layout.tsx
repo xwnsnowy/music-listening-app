@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { StoreProvider } from "./StoreProvider";
 
 import localFont from "next/font/local";
 
@@ -41,7 +42,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${circular.variable}`}>
-      <body className={inter.className}>{children}</body>
+      <StoreProvider>
+        <body className={inter.className}>{children}</body>
+      </StoreProvider>
     </html>
   );
 }

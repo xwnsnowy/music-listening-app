@@ -1,9 +1,16 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { useState } from "react";
 
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  setCurrentStep,
+  setEmail,
+  setPassword,
+} from "@/lib/features/register/registerSlice";
+import { useAppDispatch } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
+
 import {
   Form,
   FormControl,
@@ -13,48 +20,51 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
 
-import { registerSchema } from "@/schemas/auth";
+import { passwordSchema } from "@/schemas/auth";
 
 interface IFormInput {
-  email: string;
   password: string;
 }
 
-interface RegisterFormStepSecondProps {
-  onNextStep: () => void;
-}
+export default function RegisterFormStepSecond() {
+  const dispatch = useAppDispatch();
 
-export default function RegisterFormStepSecond({
-  onNextStep,
-}: RegisterFormStepSecondProps) {
-  const form = useForm<IFormInput>({
-    resolver: joiResolver(registerSchema),
+  const form = useForm<z.infer<typeof passwordSchema>>({
+    resolver: zodResolver(passwordSchema),
+    defaultValues: {
+      password: "",
+    },
   });
 
-  const [submitting, setSubmitting] = useState(false);
-
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // Simulate form submission
-    setSubmitting(true);
-    console.log("Submitting form with data:", data);
-    // Perform your actual form submission logic here
-    // For example, make an API call to your server
-    // After successful submission, reset form and state
-    setSubmitting(false); // Gọi hàm callback để chuyển sang bước tiếp theo
-    onNextStep();
+    try {
+      // Xử lý validation
+      // await form.trigger();
+
+      // Nếu không có lỗi validation, gọi dispatch và setCurrentStep
+      // if (form.formState.isValid) {
+      console.log("Submitting form with data:", data);
+      dispatch(setPassword(data.password));
+      dispatch(setCurrentStep(2));
+      // }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
     <Form {...form}>
       <form
+        // onSubmit={() => console.log("abc")}
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-4 min-w-72 flex flex-col text-primaryColor "
       >
         <FormField
           control={form.control}
-          name="email"
+          name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-primaryColor">Email</FormLabel>
@@ -63,19 +73,17 @@ export default function RegisterFormStepSecond({
                   placeholder="tienthanhcute2k2@gmail.com"
                   {...field}
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
-                  type="email"
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <span className="font-light">Remember me</span>
         <Button
           type="submit"
           className="text-bgBase text-base bg-[#1ed760] rounded-full hover:bg-[#1ed760] transform hover:scale-105 font-semibold min-h-12"
         >
-          Log in
+          Next
         </Button>
       </form>
     </Form>

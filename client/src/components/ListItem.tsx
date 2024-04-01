@@ -24,7 +24,13 @@ const ListItem: React.FC<ListItemProps> = ({ image, name, href }) => {
       title="abc"
     >
       <div className="relative min-h-16 min-w-16">
-        <Image className="object-cover" fill src={image} alt="Image" />
+        <Image
+          className="object-cover"
+          fill
+          src={image}
+          alt="Image"
+          sizes="16"
+        />
       </div>
       <p className="truncate py-5 font-medium">{name}</p>
       <div

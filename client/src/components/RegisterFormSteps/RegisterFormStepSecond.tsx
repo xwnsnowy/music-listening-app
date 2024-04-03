@@ -67,10 +67,9 @@ export default function RegisterFormStepSecond() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-primaryColor">Email</FormLabel>
+              <FormLabel className="text-primaryColor">Password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="tienthanhcute2k2@gmail.com"
                   {...field}
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />

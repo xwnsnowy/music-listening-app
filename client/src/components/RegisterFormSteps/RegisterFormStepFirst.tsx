@@ -9,6 +9,7 @@ import {
 } from "@/lib/features/register/registerSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -29,6 +30,7 @@ interface IFormInput {
 }
 
 export default function RegisterFormStepFirst() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const form = useForm<z.infer<typeof emailSchema>>({
@@ -48,6 +50,8 @@ export default function RegisterFormStepFirst() {
       console.log("Submitting form with data:", data);
       dispatch(setEmail(data.email));
       dispatch(setCurrentStep(2));
+      const forwardUrl = encodeURIComponent("http://localhost:3000/");
+      router.push(`/signup?forward_url=${forwardUrl}&step=2`);
       // }
     } catch (error) {
       console.error("Error submitting form:", error);

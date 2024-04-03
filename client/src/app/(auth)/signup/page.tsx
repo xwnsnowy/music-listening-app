@@ -10,10 +10,13 @@ import {
 } from "@/lib/features/register/registerSlice";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const dispatch = useAppDispatch();
   const currentStep = useAppSelector(selectCurrentStep);
   const [progress, setProgress] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     if (currentStep === 2) {
@@ -38,21 +41,40 @@ const Register = () => {
           Sign up to start listening
         </h1>
       )}
+      {currentStep !== 1 && (
+        <ProgressBar
+          completed={progress}
+          className="w-full"
+          height="2px"
+          isLabelVisible={false}
+          bgColor="#1ed760"
+        />
+      )}
       {currentStep === 2 && (
         <>
-          <ProgressBar
-            completed={progress}
-            className="w-full"
-            height="2px"
-            isLabelVisible={false}
-            bgColor="#1ed760"
-          />
           <div className="flex flex-col w-[288px] mb-3">
             <span className="text-secondaryColor">Step 2 of 4</span>
             <span className="text-primaryColor">Create a password</span>
           </div>
         </>
       )}
+      {currentStep === 3 && (
+        <>
+          <div className="flex flex-col w-[288px] mb-3">
+            <span className="text-secondaryColor">Step 3 of 4</span>
+            <span className="text-primaryColor">Create a password</span>
+          </div>
+        </>
+      )}
+      {currentStep === 4 && (
+        <>
+          <div className="flex flex-col w-[288px] mb-3">
+            <span className="text-secondaryColor">Step 3 of 4</span>
+            <span className="text-primaryColor">Create a password</span>
+          </div>
+        </>
+      )}
+
       <RegisterForm />
 
       {currentStep === 1 && (

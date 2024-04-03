@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input";
+import { PasswordInput } from "../ui/password-input";
 
 import { passwordSchema } from "@/schemas/auth";
 
@@ -69,8 +69,9 @@ export default function RegisterFormStepSecond() {
             <FormItem>
               <FormLabel className="text-primaryColor">Password</FormLabel>
               <FormControl>
-                <Input
+                <PasswordInput
                   {...field}
+                  type="text"
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />
               </FormControl>
@@ -85,6 +86,70 @@ export default function RegisterFormStepSecond() {
           Next
         </Button>
       </form>
+      <div className="space-y-4 min-w-72 flex flex-col text-primaryColor text-sm">
+        <span className="text-primaryColor font-bold">
+          Your password must contain at least:
+        </span>
+        <ul className="space-y-2">
+          <li className="flex items-center">
+            <svg
+              className="w-4 h-4 mr-2"
+              width="12"
+              height="12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <ellipse
+                cx="6"
+                cy="6"
+                rx="5.5"
+                ry="5.5"
+                stroke="#A7A7A7"
+                strokeWidth="1"
+              ></ellipse>
+            </svg>
+            <span>1 letter</span>
+          </li>
+          <li className="flex items-center">
+            <svg
+              className="w-4 h-4 mr-2"
+              width="12"
+              height="12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <ellipse
+                cx="6"
+                cy="6"
+                rx="5.5"
+                ry="5.5"
+                stroke="#A7A7A7"
+                strokeWidth="1"
+              ></ellipse>
+            </svg>
+            <span>1 number or special character</span>
+          </li>
+          <li className="flex items-center">
+            <svg
+              className="w-4 h-4 mr-2"
+              width="12"
+              height="12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <ellipse
+                cx="6"
+                cy="6"
+                rx="5.5"
+                ry="5.5"
+                stroke="#A7A7A7"
+                strokeWidth="1"
+              ></ellipse>
+            </svg>
+            <span>10 characters</span>
+          </li>
+        </ul>
+      </div>
     </Form>
   );
 }

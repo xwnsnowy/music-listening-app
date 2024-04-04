@@ -92,60 +92,114 @@ export default function RegisterFormStepSecond() {
         </span>
         <ul className="space-y-2">
           <li className="flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              width="12"
-              height="12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="6"
-                cy="6"
-                rx="5.5"
-                ry="5.5"
-                stroke="#A7A7A7"
-                strokeWidth="1"
-              ></ellipse>
-            </svg>
+            {/* Checkmark SVG for 1 letter */}
+            {/* Replace the ellipse SVG with the checkmark SVG when the condition is met */}
+            {form.formState.dirtyFields.password &&
+            /[a-zA-Z]/.test(form.getValues("password")) ? (
+              <svg
+                className="w-4 h-4 mr-2 text-[#1ed760]"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M14.293 5.293a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L7 11.586l6.293-6.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-4 h-4 mr-2"
+                width="12"
+                height="12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <ellipse
+                  cx="6"
+                  cy="6"
+                  rx="5.5"
+                  ry="5.5"
+                  stroke="#A7A7A7"
+                  strokeWidth="1"
+                ></ellipse>
+              </svg>
+            )}
             <span>1 letter</span>
           </li>
+          {/* Repeat similar logic for other criteria */}
+          {/* Checkmark SVG for 1 number or special character */}
           <li className="flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              width="12"
-              height="12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="6"
-                cy="6"
-                rx="5.5"
-                ry="5.5"
-                stroke="#A7A7A7"
-                strokeWidth="1"
-              ></ellipse>
-            </svg>
+            {/* Checkmark SVG for 1 number or special character */}
+            {form.formState.dirtyFields.password &&
+            /[\d!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(
+              form.getValues("password")
+            ) ? (
+              <svg
+                className="w-4 h-4 mr-2 text-green-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M14.293 5.293a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L7 11.586l6.293-6.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-4 h-4 mr-2"
+                width="12"
+                height="12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <ellipse
+                  cx="6"
+                  cy="6"
+                  rx="5.5"
+                  ry="5.5"
+                  stroke="#A7A7A7"
+                  strokeWidth="1"
+                ></ellipse>
+              </svg>
+            )}
             <span>1 number or special character</span>
           </li>
+          {/* Checkmark SVG for 10 characters */}
           <li className="flex items-center">
-            <svg
-              className="w-4 h-4 mr-2"
-              width="12"
-              height="12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <ellipse
-                cx="6"
-                cy="6"
-                rx="5.5"
-                ry="5.5"
-                stroke="#A7A7A7"
-                strokeWidth="1"
-              ></ellipse>
-            </svg>
+            {/* Checkmark SVG for 10 characters */}
+            {form.formState.dirtyFields.password &&
+            form.getValues("password").length >= 10 ? (
+              <svg
+                className="w-4 h-4 mr-2 text-green-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M14.293 5.293a1 1 0 011.414 1.414l-7 7a1 1 0 01-1.414 0l-3-3a1 1 0 111.414-1.414L7 11.586l6.293-6.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-4 h-4 mr-2"
+                width="12"
+                height="12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <ellipse
+                  cx="6"
+                  cy="6"
+                  rx="5.5"
+                  ry="5.5"
+                  stroke="#A7A7A7"
+                  strokeWidth="1"
+                ></ellipse>
+              </svg>
+            )}
             <span>10 characters</span>
           </li>
         </ul>

@@ -7,7 +7,7 @@ export const emailSchema = z.object({
 
 // Step 2: Password Schema
 export const passwordSchema = z.object({
-  password: z.string().min(3, { message: "Password must be at least 3 characters long" }).max(30, { message: "Password must be at most 30 characters long" }),
+  password: z.string().min(10, { message: "Password must be at least 10 characters long" }).max(30, { message: "Password must be at most 30 characters long" }),
 });
 
 // Step 3: Personal Information Schema
@@ -26,6 +26,6 @@ export const loginSchema = z.object({
   email: z.string()
     .email({ message: "Invalid email format" }).min(1).max(255),
   password: z.string()
-    .min(3, { message: "Password must be at least 3 characters long" })
+    .min(1, { message: "Password must be at least 1 letter and 10 characters long" })
     .max(30, { message: "Password must be at most 30 characters long" }),
 });

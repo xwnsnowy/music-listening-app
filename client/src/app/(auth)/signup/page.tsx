@@ -62,7 +62,7 @@ const Register = () => {
         <>
           <div className="flex flex-col w-[288px] mb-3">
             <span className="text-secondaryColor">Step 3 of 4</span>
-            <span className="text-primaryColor">Create a password</span>
+            <span className="text-primaryColor">Tell us about yourself</span>
           </div>
         </>
       )}

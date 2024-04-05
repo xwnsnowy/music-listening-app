@@ -24,12 +24,27 @@ import {
 import { PasswordInput } from "../ui/password-input";
 
 import { passwordSchema } from "@/schemas/auth";
+import { ChangeEvent, useState } from "react";
 
 interface IFormInput {
   password: string;
 }
 
 export default function RegisterFormStepSecond() {
+  const [hasLetter, setHasLetter] = useState(false);
+  const [hasNumberOrSpecial, setHasNumberOrSpecial] = useState(false);
+  const [hasMinLength, setHasMinLength] = useState(false);
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newPassword = event.target.value;
+    // Kiểm tra từng điều kiện riêng lẻ và cập nhật trạng thái của biểu tượng checkmark
+    setHasLetter(/[a-zA-Z]/.test(newPassword));
+    setHasNumberOrSpecial(
+      /[\d!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(newPassword)
+    );
+    setHasMinLength(newPassword.length >= 10);
+  };
+
   const dispatch = useAppDispatch();
 
   const form = useForm<z.infer<typeof passwordSchema>>({
@@ -48,7 +63,7 @@ export default function RegisterFormStepSecond() {
       // if (form.formState.isValid) {
       console.log("Submitting form with data:", data);
       dispatch(setPassword(data.password));
-      dispatch(setCurrentStep(2));
+      dispatch(setCurrentStep(3));
       // }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -73,6 +88,10 @@ export default function RegisterFormStepSecond() {
                   {...field}
                   type="text"
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    handlePasswordChange(e);
+                  }}
                 />
               </FormControl>
               <FormMessage />
@@ -92,10 +111,7 @@ export default function RegisterFormStepSecond() {
         </span>
         <ul className="space-y-2">
           <li className="flex items-center">
-            {/* Checkmark SVG for 1 letter */}
-            {/* Replace the ellipse SVG with the checkmark SVG when the condition is met */}
-            {form.formState.dirtyFields.password &&
-            /[a-zA-Z]/.test(form.getValues("password")) ? (
+            {hasLetter ? (
               <svg
                 className="w-4 h-4 mr-2 text-[#1ed760]"
                 viewBox="0 0 20 20"
@@ -130,11 +146,7 @@ export default function RegisterFormStepSecond() {
           {/* Repeat similar logic for other criteria */}
           {/* Checkmark SVG for 1 number or special character */}
           <li className="flex items-center">
-            {/* Checkmark SVG for 1 number or special character */}
-            {form.formState.dirtyFields.password &&
-            /[\d!@#$%^&*()_+[\]{};':"\\|,.<>/?~]/.test(
-              form.getValues("password")
-            ) ? (
+            {hasNumberOrSpecial ? (
               <svg
                 className="w-4 h-4 mr-2 text-green-500"
                 viewBox="0 0 20 20"
@@ -169,8 +181,7 @@ export default function RegisterFormStepSecond() {
           {/* Checkmark SVG for 10 characters */}
           <li className="flex items-center">
             {/* Checkmark SVG for 10 characters */}
-            {form.formState.dirtyFields.password &&
-            form.getValues("password").length >= 10 ? (
+            {hasMinLength ? (
               <svg
                 className="w-4 h-4 mr-2 text-green-500"
                 viewBox="0 0 20 20"

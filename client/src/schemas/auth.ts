@@ -12,9 +12,15 @@ export const passwordSchema = z.object({
 
 // Step 3: Personal Information Schema
 export const personalInfoSchema = z.object({
-  name: z.string().min(1).max(255),
-  dob: z.string(),
-  gender: z.enum(['male', 'female', 'other']),
+  name: z.string().min(1, {
+    message: 'Enter a name for your profile.'
+  }).max(255),
+  dob: z.object({
+    day: z.string().min(1).max(2),
+    month: z.string().min(1).max(2),
+    year: z.string().min(4).max(4),
+  }),
+  gender: z.enum(["male", "female", "other"]),
 });
 
 // Step 4: Terms & Conditions Schema 

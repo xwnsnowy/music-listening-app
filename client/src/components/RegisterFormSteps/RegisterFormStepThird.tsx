@@ -19,6 +19,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 import {
   Form,
   FormControl,
@@ -32,6 +35,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { personalInfoSchema } from "@/schemas/auth";
+import { format } from "path/posix";
+import { useEffect } from "react";
 
 interface IFormInput {
   name: string;
@@ -50,7 +55,7 @@ export default function RegisterFormStepThird() {
     resolver: zodResolver(personalInfoSchema),
     defaultValues: {
       name: "",
-      dob: {},
+      dob: { day: "", month: undefined, year: "" },
       gender: undefined,
     },
   });
@@ -63,6 +68,8 @@ export default function RegisterFormStepThird() {
 
       // Nếu không có lỗi validation, gọi dispatch và setCurrentStep
       // if (form.formState.isValid) {
+      console.log(data.dob);
+
       console.log("Submitting form with data:", data);
       // dispatch(setEmail(data.email));
       dispatch(setCurrentStep(2));
@@ -71,6 +78,9 @@ export default function RegisterFormStepThird() {
       console.error("Error submitting form:", error);
     }
   };
+
+  // console.log(form.watch("dob"));
+  console.log(form.watch("dob"));
 
   return (
     <Form {...form}>
@@ -85,11 +95,11 @@ export default function RegisterFormStepThird() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 max-w-[288px]">
                 <FormLabel className="text-primaryColor">Name</FormLabel>
-                <FormLabel className="text-[#a7a7a7] font-light">
+                <FormDescription className="text-[#a7a7a7] font-light">
                   This name will appear on your profile
-                </FormLabel>
+                </FormDescription>
               </div>
               <FormControl>
                 <Input
@@ -103,64 +113,145 @@ export default function RegisterFormStepThird() {
           )}
         />
         {/* Date of birth */}
+        <div className="flex w-[288px] gap-2">
+          <FormField
+            control={form.control}
+            name="dob.day"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex flex-col gap-2 max-w-[288px]">
+                  <FormLabel className="text-primaryColor">Day</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Day"
+                      {...field}
+                      className="bg-transparent text-primaryColor rounded-none min-h-12"
+                    />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="dob.month"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex flex-col gap-2 max-w-[288px]">
+                  <FormLabel className="text-primaryColor">Month</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange}>
+                      <SelectTrigger className="bg-transparent text-primaryColor font-normal rounded-none min-h-12 w-36 placeholder:text-secondaryColor">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-black text-primaryColor">
+                        <SelectItem value="January">January</SelectItem>
+                        <SelectItem value="February">February</SelectItem>
+                        <SelectItem value="March">March</SelectItem>
+                        <SelectItem value="April">April</SelectItem>
+                        <SelectItem value="May">May</SelectItem>
+                        <SelectItem value="June">June</SelectItem>
+                        <SelectItem value="July">July</SelectItem>
+                        <SelectItem value="August">August</SelectItem>
+                        <SelectItem value="September">September</SelectItem>
+                        <SelectItem value="October">October</SelectItem>
+                        <SelectItem value="November">November</SelectItem>
+                        <SelectItem value="December">December</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="dob.year"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex flex-col gap-2 max-w-[288px]">
+                  <FormLabel className="text-primaryColor">Year</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Year"
+                      {...field}
+                      className="bg-transparent text-primaryColor rounded-none min-h-12"
+                    />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
-          name="dob"
+          name="gender"
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col gap-2">
-                <FormLabel className="text-primaryColor">
-                  Date of birth
-                </FormLabel>
-                <FormLabel className="text-[#a7a7a7] font-light">
-                  Why do we need your date of birth?
-                  <Link href="/">Learn more.</Link>
-                </FormLabel>
+              <div className="flex flex-col gap-2 max-w-[288px]">
+                <FormLabel className="text-primaryColor">Gender</FormLabel>
+                <FormDescription className="text-[#a7a7a7] font-light text-wrap">
+                  We use your gender to help personalize our content
+                  recommendations and ads for you.
+                </FormDescription>
               </div>
-              <FormControl className="flex gap-2">
-                {/* Day */}
-                <div className="flex gap-1 max-w-[288px]">
-                  <Input
-                    placeholder="Day"
-                    {...register("dob.day")}
-                    className="bg-transparent text-primaryColor rounded-none min-h-12 flex-1"
-                    name="day"
-                  />
-                  {/* Month */}
-                  <Select {...register("dob.month")}>
-                    <SelectTrigger className="bg-transparent text-primaryColor font-normal rounded-none min-h-12 w-36 placeholder:text-secondaryColor">
-                      <SelectValue placeholder="Month" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-black text-primaryColor">
-                      <SelectItem value="01">January</SelectItem>
-                      <SelectItem value="02">February</SelectItem>
-                      <SelectItem value="03">March</SelectItem>
-                      <SelectItem value="04">April</SelectItem>
-                      <SelectItem value="05">May</SelectItem>
-                      <SelectItem value="06">June</SelectItem>
-                      <SelectItem value="07">July</SelectItem>
-                      <SelectItem value="08">August</SelectItem>
-                      <SelectItem value="09">September</SelectItem>
-                      <SelectItem value="10">October</SelectItem>
-                      <SelectItem value="11">November</SelectItem>
-                      <SelectItem value="12">December</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {/* Year */}
-                  <Input
-                    placeholder="Year"
-                    {...register("dob.year")}
-                    className="bg-transparent text-primaryColor rounded-none min-h-12 flex-1"
-                    name="year"
-                  />
-                </div>
-              </FormControl>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <div className="flex space-x-4 mt-2">
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="male" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Male</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="female" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Female</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="non-binary" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Non-binary</FormLabel>
+                    </FormItem>
+                  </div>
 
+                  <div className="flex space-x-4">
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="something-else" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Something else
+                      </FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="prefer-not-to-say" />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Prefer not to say
+                      </FormLabel>
+                    </FormItem>
+                  </div>
+                </RadioGroup>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <Button
           type="submit"
           className="text-bgBase text-base bg-[#1ed760] rounded-full hover:bg-[#1ed760] transform hover:scale-105 font-semibold min-h-12"

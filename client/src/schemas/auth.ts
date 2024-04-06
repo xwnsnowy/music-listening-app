@@ -16,11 +16,11 @@ export const personalInfoSchema = z.object({
     message: 'Enter a name for your profile.'
   }).max(255),
   dob: z.object({
-    day: z.string().min(1).max(2),
-    month: z.string().min(1).max(2),
-    year: z.string().min(4).max(4),
+    day: z.string().min(1, { message: 'Enter day' }).max(2),
+    month: z.enum(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]),
+    year: z.string().min(4, { message: 'Enter year' }).max(4),
   }),
-  gender: z.enum(["male", "female", "other"]),
+  gender: z.enum(["male", "female", "non-binary", "something-else", "prefer-not-to-say"]),
 });
 
 // Step 4: Terms & Conditions Schema 

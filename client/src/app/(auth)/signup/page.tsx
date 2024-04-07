@@ -69,7 +69,7 @@ const Register = () => {
       {currentStep === 4 && (
         <>
           <div className="flex flex-col w-[288px] mb-3">
-            <span className="text-secondaryColor">Step 3 of 4</span>
+            <span className="text-secondaryColor">Step 4 of 4</span>
             <span className="text-primaryColor">Create a password</span>
           </div>
         </>

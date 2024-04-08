@@ -75,7 +75,7 @@ export default function RegisterFormStepSecond() {
       <form
         // onSubmit={() => console.log("abc")}
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 min-w-72 flex flex-col text-primaryColor "
+        className="space-y-4 min-w-[312px] flex flex-col text-primaryColor "
       >
         <FormField
           control={form.control}
@@ -105,7 +105,7 @@ export default function RegisterFormStepSecond() {
           Next
         </Button>
       </form>
-      <div className="space-y-4 min-w-72 flex flex-col text-primaryColor text-sm">
+      <div className="space-y-4 min-w-[312px] flex flex-col text-primaryColor text-sm">
         <span className="text-primaryColor font-bold">
           Your password must contain at least:
         </span>

@@ -5,7 +5,7 @@ import {
   RegisterFormStepFirst,
   RegisterFormStepSecond,
   RegisterFormStepThird,
-  // RegisterFormStepFourth,
+  RegisterFormStepFourth,
 } from "@/components/RegisterFormSteps";
 import { type ReactElement } from "react";
 import { selectCurrentStep } from "@/lib/features/register/registerSlice";
@@ -21,8 +21,8 @@ const RegisterForm = (): ReactElement => {
         return <RegisterFormStepSecond />;
       case 3:
         return <RegisterFormStepThird />;
-      // case 4:
-      //   return <RegisterFormStepFourth />;
+      case 4:
+        return <RegisterFormStepFourth />;
       default:
         return null;
     }

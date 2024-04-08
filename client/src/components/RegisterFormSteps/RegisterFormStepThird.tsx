@@ -72,22 +72,19 @@ export default function RegisterFormStepThird() {
 
       console.log("Submitting form with data:", data);
       // dispatch(setEmail(data.email));
-      dispatch(setCurrentStep(2));
+      dispatch(setCurrentStep(4));
       // }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
-  // console.log(form.watch("dob"));
-  console.log(form.watch("dob"));
-
   return (
     <Form {...form}>
       <form
         // onSubmit={() => console.log("abc")}
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 min-w-72 flex flex-col text-primaryColor "
+        className="space-y-4 max-w-[312px] flex flex-col text-primaryColor "
       >
         {/* Name */}
         <FormField
@@ -95,7 +92,7 @@ export default function RegisterFormStepThird() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col gap-2 max-w-[288px]">
+              <div className="flex flex-col gap-2 max-w-[312px]">
                 <FormLabel className="text-primaryColor">Name</FormLabel>
                 <FormDescription className="text-[#a7a7a7] font-light">
                   This name will appear on your profile
@@ -113,23 +110,23 @@ export default function RegisterFormStepThird() {
           )}
         />
         {/* Date of birth */}
-        <div className="flex w-[288px] gap-2">
+        <div className="flex w-full gap-2">
           <FormField
             control={form.control}
             name="dob.day"
             render={({ field }) => (
-              <FormItem>
-                <div className="flex flex-col gap-2 max-w-[288px]">
+              <FormItem className="flex-1">
+                <div className="flex flex-col gap-2">
                   <FormLabel className="text-primaryColor">Day</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Day"
+                      placeholder="dd"
                       {...field}
                       className="bg-transparent text-primaryColor rounded-none min-h-12"
                     />
                   </FormControl>
                 </div>
-                <FormMessage />
+                <FormMessage className="max-w-16" />
               </FormItem>
             )}
           />
@@ -139,11 +136,11 @@ export default function RegisterFormStepThird() {
             name="dob.month"
             render={({ field }) => (
               <FormItem>
-                <div className="flex flex-col gap-2 max-w-[288px]">
+                <div className="flex flex-col gap-2">
                   <FormLabel className="text-primaryColor">Month</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange}>
-                      <SelectTrigger className="bg-transparent text-primaryColor font-normal rounded-none min-h-12 w-36 placeholder:text-secondaryColor">
+                      <SelectTrigger className="bg-transparent text-primaryColor font-normal rounded-none min-h-12 max-w-40 w-40 placeholder:text-secondaryColor">
                         <SelectValue placeholder="Month" />
                       </SelectTrigger>
                       <SelectContent className="bg-black text-primaryColor">
@@ -172,18 +169,18 @@ export default function RegisterFormStepThird() {
             control={form.control}
             name="dob.year"
             render={({ field }) => (
-              <FormItem>
-                <div className="flex flex-col gap-2 max-w-[288px]">
+              <FormItem className="flex-1">
+                <div className="flex flex-col gap-2">
                   <FormLabel className="text-primaryColor">Year</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Year"
+                      placeholder="yyyy"
                       {...field}
-                      className="bg-transparent text-primaryColor rounded-none min-h-12"
+                      className="bg-transparent text-primaryColor rounded-none min-h-12 flex-1"
                     />
                   </FormControl>
                 </div>
-                <FormMessage />
+                <FormMessage className="max-w-16" />
               </FormItem>
             )}
           />
@@ -194,7 +191,7 @@ export default function RegisterFormStepThird() {
           name="gender"
           render={({ field }) => (
             <FormItem>
-              <div className="flex flex-col gap-2 max-w-[288px]">
+              <div className="flex flex-col gap-2 max-w-[312px]">
                 <FormLabel className="text-primaryColor">Gender</FormLabel>
                 <FormDescription className="text-[#a7a7a7] font-light text-wrap">
                   We use your gender to help personalize our content

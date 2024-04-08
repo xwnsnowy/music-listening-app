@@ -18,14 +18,17 @@ export const personalInfoSchema = z.object({
   dob: z.object({
     day: z.string().min(1, { message: 'Enter day' }).max(2),
     month: z.enum(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]),
-    year: z.string().min(4, { message: 'Enter year' }).max(4),
+    year: z.string().min(4, { message: 'Enter year' }).max(4).refine((year) => parseInt(year) > 1900, {
+      message: 'Year must be greater than 1900'
+    }),
   }),
   gender: z.enum(["male", "female", "non-binary", "something-else", "prefer-not-to-say"]),
 });
 
 // Step 4: Terms & Conditions Schema 
 export const termsAndConditionsSchema = z.object({
-  agreed: z.boolean().refine(value => value === true, { message: "You must agree to the terms and conditions" }),
+  receiveMarketingMessages: z.boolean().default(false).optional(),
+  shareDataWithContentProviders: z.boolean().default(false).optional(),
 });
 
 export const loginSchema = z.object({

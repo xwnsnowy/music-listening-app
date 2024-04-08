@@ -52,7 +52,7 @@ const Register = () => {
       )}
       {currentStep === 2 && (
         <>
-          <div className="flex flex-col w-[288px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3">
             <span className="text-secondaryColor">Step 2 of 4</span>
             <span className="text-primaryColor">Create a password</span>
           </div>
@@ -60,7 +60,7 @@ const Register = () => {
       )}
       {currentStep === 3 && (
         <>
-          <div className="flex flex-col w-[288px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3">
             <span className="text-secondaryColor">Step 3 of 4</span>
             <span className="text-primaryColor">Tell us about yourself</span>
           </div>
@@ -68,9 +68,9 @@ const Register = () => {
       )}
       {currentStep === 4 && (
         <>
-          <div className="flex flex-col w-[288px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3">
             <span className="text-secondaryColor">Step 4 of 4</span>
-            <span className="text-primaryColor">Create a password</span>
+            <span className="text-primaryColor">Terms & Conditions</span>
           </div>
         </>
       )}

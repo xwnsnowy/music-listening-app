@@ -154,7 +154,7 @@ const FormMessage = React.forwardRef<
   }
 
   return (
-    <div className="flex gap-1 items-center justify-center">
+    <div className="flex gap-1 items-center">
       <ShieldAlert className="text-red-500 dark:text-red-900" size={19} />
       <p
         ref={ref}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,6 +50,8 @@ interface IFormInput {
 }
 
 export default function RegisterFormStepThird() {
+  const router = useRouter();
+
   const dispatch = useAppDispatch();
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
@@ -73,6 +76,8 @@ export default function RegisterFormStepThird() {
       console.log("Submitting form with data:", data);
       // dispatch(setEmail(data.email));
       dispatch(setCurrentStep(4));
+      const forwardUrl = encodeURIComponent("http://localhost:3000/");
+      router.push(`/signup?forward_url=${forwardUrl}&step=4`);
       // }
     } catch (error) {
       console.error("Error submitting form:", error);

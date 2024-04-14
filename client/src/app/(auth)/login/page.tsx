@@ -27,9 +27,9 @@ const Login = () => {
       <hr className="my-8 border border-tintedBase w-9/12" />
 
       <div className="text-primaryColor py-8 font-light gap-1 flex">
-        <span className="text-secondaryColor">Already have an account?</span>
+        <span className="text-secondaryColor">Don&apos;t have an account?</span>
         <Link href="/signup" className="underline">
-          Log in here.
+          Sign up for Spotify
         </Link>
       </div>
     </div>

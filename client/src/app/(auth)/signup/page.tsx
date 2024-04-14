@@ -11,6 +11,7 @@ import {
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ const Register = () => {
 
   return (
     <div
-      className={`max-w-[400px] min-h-[826px] w-full rounded-lg bg-bgBase flex flex-col items-center ${
+      className={`max-w-[400px] min-h-[826px] w-full rounded-lg px-3 bg-bgBase flex flex-col items-center ${
         currentStep === 1 ? "justify-center" : "justify-start"
       } py-8 gap-4  font-circular`}
     >
@@ -50,9 +51,14 @@ const Register = () => {
           bgColor="#1ed760"
         />
       )}
+
       {currentStep === 2 && (
         <>
-          <div className="flex flex-col w-[312px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3 relative">
+            <ChevronLeft
+              className="absolute text-secondaryColor left-[-36px] top-1/2 transform -translate-y-1/2 cursor-pointer hover:text-primaryColor transition hover:scale-105"
+              size={29}
+            />
             <span className="text-secondaryColor">Step 2 of 4</span>
             <span className="text-primaryColor">Create a password</span>
           </div>
@@ -60,7 +66,11 @@ const Register = () => {
       )}
       {currentStep === 3 && (
         <>
-          <div className="flex flex-col w-[312px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3 relative">
+            <ChevronLeft
+              className="absolute text-secondaryColor left-[-36px] top-1/2 transform -translate-y-1/2 cursor-pointer hover:text-primaryColor transition hover:scale-105"
+              size={29}
+            />
             <span className="text-secondaryColor">Step 3 of 4</span>
             <span className="text-primaryColor">Tell us about yourself</span>
           </div>
@@ -68,15 +78,17 @@ const Register = () => {
       )}
       {currentStep === 4 && (
         <>
-          <div className="flex flex-col w-[312px] mb-3">
+          <div className="flex flex-col w-[312px] mb-3 relative">
+            <ChevronLeft
+              className="absolute text-secondaryColor left-[-36px] top-1/2 transform -translate-y-1/2 cursor-pointer hover:text-primaryColor transition hover:scale-105"
+              size={29}
+            />
             <span className="text-secondaryColor">Step 4 of 4</span>
             <span className="text-primaryColor">Terms & Conditions</span>
           </div>
         </>
       )}
-
       <RegisterForm />
-
       {currentStep === 1 && (
         <>
           {/* Signup Social Media */}

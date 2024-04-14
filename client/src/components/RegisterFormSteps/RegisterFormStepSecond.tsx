@@ -9,7 +9,7 @@ import {
   setPassword,
 } from "@/lib/features/register/registerSlice";
 import { useAppDispatch } from "@/lib/hooks";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 
 import { PasswordInput } from "../ui/password-input";
+import { Button } from "@/components/ui/button";
 
 import { passwordSchema } from "@/schemas/auth";
 import { ChangeEvent, useState } from "react";
@@ -31,6 +32,8 @@ interface IFormInput {
 }
 
 export default function RegisterFormStepSecond() {
+  const router = useRouter();
+
   const [hasLetter, setHasLetter] = useState(false);
   const [hasNumberOrSpecial, setHasNumberOrSpecial] = useState(false);
   const [hasMinLength, setHasMinLength] = useState(false);
@@ -64,6 +67,8 @@ export default function RegisterFormStepSecond() {
       console.log("Submitting form with data:", data);
       dispatch(setPassword(data.password));
       dispatch(setCurrentStep(3));
+      const forwardUrl = encodeURIComponent("http://localhost:3000/");
+      router.push(`/signup?forward_url=${forwardUrl}&step=3`);
       // }
     } catch (error) {
       console.error("Error submitting form:", error);

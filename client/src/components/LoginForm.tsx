@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { loginSchema } from "@/schemas/auth";
+import { loginSchema } from "@/validations/auth";
 
 interface IFormInput {
   email: string;

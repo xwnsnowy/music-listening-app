@@ -1,21 +1,14 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY as string
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  withCredentials: true
-});
-
-//set Authorization when logged in
-instance.interceptors.request.use(function (config) {
-  const token = getCookie("token");
-  if (token === undefined) {
-    config.headers.Authorization = '';
-  } else {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    'API-Key': API_KEY
+  },
 });
 
 export default instance;

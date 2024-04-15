@@ -35,7 +35,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import { personalInfoSchema } from "@/schemas/auth";
+import { personalInfoSchema } from "@/validations/auth";
 import { format } from "path/posix";
 import { useEffect } from "react";
 

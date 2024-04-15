@@ -23,19 +23,40 @@ interface LoginData {
 
 // Check User Exist when sign up
 export function userExist(data: UserExistData) {
-  return axiosConfig.post(`/auth/userExist`, data);
+  console.log("Data in userExist:", data);
+
+  return axiosConfig.post(`/auth/user-exist`, data)
+    .then(response => {
+      console.log("Response from server:", response.data);
+      return response.data;
+    })
 }
-//Singup
+
+// Signup
 export function signup(data: SignUpData) {
-  return axiosConfig.post(`/auth/signup`, data);
+  return axiosConfig.post(`/auth/signup`, data)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
 }
-//Login
+
+// Login
 export function login(data: LoginData) {
-  return axiosConfig.post(`/auth/login`, data);
+  return axiosConfig.post(`/auth/login`, data)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
 }
-//Logout
+
+// Logout
 export function logout() {
-  return axiosConfig.get(`/auth/logout`);
+  return axiosConfig.get(`/auth/logout`)
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
 }
 
 //Renew token using refreshToken (cookie)

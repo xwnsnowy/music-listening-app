@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { termsAndConditionsSchema } from "@/schemas/auth";
+import { termsAndConditionsSchema } from "@/validations/auth";
 import Link from "next/link";
 
 interface IFormInput {

@@ -24,7 +24,7 @@ import {
 import { PasswordInput } from "../ui/password-input";
 import { Button } from "@/components/ui/button";
 
-import { passwordSchema } from "@/schemas/auth";
+import { passwordSchema } from "@/validations/auth";
 import { ChangeEvent, useState } from "react";
 
 interface IFormInput {

@@ -23,7 +23,9 @@ import {
 
 import { Input } from "@/components/ui/input";
 
-import { emailSchema } from "@/schemas/auth";
+import { emailSchema } from "@/validations/auth";
+import { userExist } from "@/services/authServices";
+import { useState } from "react";
 
 interface IFormInput {
   email: string;
@@ -40,19 +42,20 @@ export default function RegisterFormStepFirst() {
     },
   });
 
+  const [error, setError] = useState<string>("");
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      // Xử lý validation
-      // await form.trigger();
-
-      // Nếu không có lỗi validation, gọi dispatch và setCurrentStep
-      // if (form.formState.isValid) {
+      const res = await userExist(data);
+      if (res.exists) {
+        setError("Email already exists");
+        return;
+      }
       console.log("Submitting form with data:", data);
       dispatch(setEmail(data.email));
       dispatch(setCurrentStep(2));
       const forwardUrl = encodeURIComponent("http://localhost:3000/");
       router.push(`/signup?forward_url=${forwardUrl}&step=2`);
-      // }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -78,7 +81,7 @@ export default function RegisterFormStepFirst() {
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage error={error} />
             </FormItem>
           )}
         />

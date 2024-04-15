@@ -7,11 +7,12 @@ import router from "./routes/index.js";
 
 const app = express();
 
+app.use(express.json());
+
 const { PORT, DB_URI } = process.env;
 
-// Middleware
+// Middleware CORS
 app.use(cors());
-app.use(express.json());
 
 // ? Phương thức connect với tham số connect string
 await mongoose.connect(DB_URI).then(() => {

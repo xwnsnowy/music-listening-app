@@ -4,8 +4,8 @@ export const validBody = (dataBody, schemaData) => {
   });
 
   if (error) {
-    return res.status(400).json({
-      message: error.details[0].message,
-    });
+    const errors = error.details.map((err) => err.message);
+    return errors;
   }
+  return null;
 };

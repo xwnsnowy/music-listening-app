@@ -6,16 +6,16 @@ import {
   updateProfile,
   deleteProfile,
 } from "../controllers/profile.js";
-import { checkProfileOwnership } from "../middlewares/checkAuth.js";
 import { checkPermission } from "../middlewares/checkPermission.js";
-
+import { checkProfileOwner } from "../middlewares/checkProfileOwner.js";
 const profileRouter = Router();
 
 profileRouter.get("/", getProfiles);
 
 profileRouter.get("/:id", getProfileById);
 
-profileRouter.use(checkPermission, checkProfileOwnership);
+profileRouter.use(checkPermission);
+profileRouter.use(checkProfileOwner);
 
 profileRouter.post("/create", createProfile);
 

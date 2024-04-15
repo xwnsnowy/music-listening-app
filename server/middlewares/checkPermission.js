@@ -1,3 +1,8 @@
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import User from "../models/User.js";
+dotenv.config();
+
 const { TOKEN_SECRET } = process.env;
 
 export const checkPermission = async (req, res, next) => {

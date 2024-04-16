@@ -13,8 +13,9 @@ export const userExist = async (req, res, next) => {
         exists: false,
       });
     }
-    return res.status(400).json({
+    return res.status(200).json({
       exists: true,
+      error: "Email already exists",
     });
   } catch (error) {
     next(error);

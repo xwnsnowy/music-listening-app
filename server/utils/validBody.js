@@ -1,11 +1,8 @@
 export const validBody = (dataBody, schemaData) => {
-  const { error } = schemaData.validate(dataBody, {
-    abortEarly: false,
-  });
+  const result = schemaData.safeParse(dataBody);
 
-  if (error) {
-    const errors = error.details.map((err) => err.message);
-    return errors;
+  if (!result.success) {
+    return result.error;
   }
   return null;
 };

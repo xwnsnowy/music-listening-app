@@ -30,7 +30,7 @@ export const register = async (req, res, next) => {
      * 3. Hash password
      * 4. Create user - save to database
      */
-    const { email, password } = req.body;
+    const { email, password, name, dob, gender } = req.body;
 
     const errors = validBody(req.body, registerSchema);
     if (errors) {
@@ -47,8 +47,11 @@ export const register = async (req, res, next) => {
 
     // Cach 1:
     const user = await User.create({
-      email,
+      email: email,
       password: hashPasswordUser,
+      name: name,
+      dob: dob,
+      gender: gender,
     });
 
     // Cach 2:

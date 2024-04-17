@@ -25,7 +25,8 @@ import { Input } from "@/components/ui/input";
 
 import { emailSchema } from "@/validations/auth";
 import { userExist } from "@/services/authServices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ShieldAlert } from "lucide-react";
 
 interface IFormInput {
   email: string;
@@ -46,9 +47,11 @@ export default function RegisterFormStepFirst() {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      const res = await userExist(data);
-      if (res.exists) {
-        setError("Email already exists");
+      const { exists, error } = await userExist(data);
+      console.log(exists);
+      console.log(error);
+      if (exists) {
+        setError(error);
         return;
       }
       console.log("Submitting form with data:", data);
@@ -81,7 +84,14 @@ export default function RegisterFormStepFirst() {
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />
               </FormControl>
-              <FormMessage error={error} />
+              {error && (
+                <div className="flex gap-1 items-center ">
+                  <p className="text-sm font-medium text-red-500 dark:text-red-900">
+                    {error}
+                  </p>
+                </div>
+              )}
+              <FormMessage />
             </FormItem>
           )}
         />

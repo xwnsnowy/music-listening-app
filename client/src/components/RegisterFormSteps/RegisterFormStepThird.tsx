@@ -8,6 +8,7 @@ import { z } from "zod";
 import {
   setCurrentStep,
   setEmail,
+  setPersonalInfo,
 } from "@/lib/features/register/registerSlice";
 import { useAppDispatch } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
@@ -66,15 +67,18 @@ export default function RegisterFormStepThird() {
   const { register } = form;
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      // Xử lý validation
-      // await form.trigger();
-
-      // Nếu không có lỗi validation, gọi dispatch và setCurrentStep
-      // if (form.formState.isValid) {
-      console.log(data.dob);
-
       console.log("Submitting form with data:", data);
-      // dispatch(setEmail(data.email));
+      dispatch(
+        setPersonalInfo({
+          name: data.name,
+          dob: {
+            day: data.dob.day,
+            month: data.dob.month,
+            year: data.dob.year,
+          },
+          gender: data.gender,
+        })
+      );
       dispatch(setCurrentStep(4));
       const forwardUrl = encodeURIComponent("http://localhost:3000/");
       router.push(`/signup?forward_url=${forwardUrl}&step=4`);

@@ -22,19 +22,20 @@ interface LoginData {
 }
 
 // Check User Exist when sign up
-export function userExist(data: UserExistData) {
-  console.log("Data in userExist:", data);
-
-  return axiosConfig.post(`/auth/user-exist`, data)
-    .then(response => {
-      console.log("Response from server:", response.data);
-      return response.data;
-    })
+export async function userExist(data: UserExistData) {
+  try {
+    const response = await axiosConfig.post(`/auth/user-exist`, data);
+    console.log("Response from server:", response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
+
 
 // Signup
 export function signup(data: SignUpData) {
-  return axiosConfig.post(`/auth/signup`, data)
+  return axiosConfig.post(`/auth/register`, data)
     .then(response => response.data)
     .catch(error => {
       throw error;

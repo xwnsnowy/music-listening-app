@@ -2,13 +2,19 @@ import { createAppSlice } from "@/lib/createAppSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/lib/store";
 
+interface DateOfBirth {
+  day: string;
+  month: "January" | "February" | "March" | "April" | "May" | "June" | "July" | "August" | "September" | "October" | "November" | "December";
+  year: string;
+}
+
 interface RegisterSliceState {
   currentStep: number;
   email: string;
   password: string;
   name: string;
-  dob: string;
-  gender: string;
+  dob: DateOfBirth;
+  gender: "male" | "female" | "non-binary" | "something-else" | "prefer-not-to-say";
 }
 
 const initialState: RegisterSliceState = {
@@ -16,8 +22,8 @@ const initialState: RegisterSliceState = {
   email: "",
   password: "",
   name: "",
-  dob: "",
-  gender: "",
+  dob: { day: "", month: "January", year: "" },
+  gender: "male",
 };
 
 export const registerSlice = createAppSlice({
@@ -33,7 +39,7 @@ export const registerSlice = createAppSlice({
     setPassword: (state, action: PayloadAction<string>) => {
       state.password = action.payload;
     },
-    setPersonalInfo: (state, action: PayloadAction<{ name: string, dob: string, gender: string }>) => {
+    setPersonalInfo: (state, action: PayloadAction<{ name: string, dob: DateOfBirth, gender: "male" | "female" | "non-binary" | "something-else" | "prefer-not-to-say" }>) => {
       state.name = action.payload.name;
       state.dob = action.payload.dob;
       state.gender = action.payload.gender;

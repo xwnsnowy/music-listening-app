@@ -4,11 +4,13 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
-  setCurrentStep,
-  setEmail,
-  setPassword,
+  selectDOB,
+  selectEmail,
+  selectGender,
+  selectName,
+  selectPassword,
 } from "@/lib/features/register/registerSlice";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -24,31 +26,41 @@ import {
 
 import { termsAndConditionsSchema } from "@/validations/auth";
 import Link from "next/link";
+import { signup } from "@/services/authServices";
 
 interface IFormInput {
   receiveMarketingMessages?: boolean;
   shareDataWithContentProviders?: boolean;
 }
 
-export default function RegisterFormStepSecond() {
-  const dispatch = useAppDispatch();
+export default function RegisterFormStepFourth() {
+  const email = useAppSelector(selectEmail);
+  const password = useAppSelector(selectPassword);
+  const name = useAppSelector(selectName);
+  const dob = useAppSelector(selectDOB);
+  const gender = useAppSelector(selectGender);
 
   const form = useForm<z.infer<typeof termsAndConditionsSchema>>({
     resolver: zodResolver(termsAndConditionsSchema),
     defaultValues: {},
   });
 
+  const userData = {
+    email,
+    password,
+    name,
+    dob,
+    gender,
+  };
+
+  console.log(userData);
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      // Xử lý validation
-      // await form.trigger();
+      await signup(userData);
+      console.log("Registration successful");
 
-      // Nếu không có lỗi validation, gọi dispatch và setCurrentStep
-      // if (form.formState.isValid) {
-      console.log("Submitting form with data:", data);
-      // dispatch(setPassword(data.password));
-      // dispatch(setCurrentStep(3));
-      // }
+      // router.push("/success");
     } catch (error) {
       console.error("Error submitting form:", error);
     }

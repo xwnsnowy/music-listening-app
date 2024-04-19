@@ -4,6 +4,7 @@ import googleIcon from "../../public/images/google-icon.svg";
 import facebookIcon from "../../public/images/facebook-icon.svg";
 import appleIcon from "../../public/images/apple-icon.svg";
 import { twMerge } from "tailwind-merge";
+
 interface SocialMediaProps {
   text?: string;
   className?: string;

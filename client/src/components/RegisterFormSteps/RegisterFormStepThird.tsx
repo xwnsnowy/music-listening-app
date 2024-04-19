@@ -37,17 +37,32 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { personalInfoSchema } from "@/validations/auth";
-import { format } from "path/posix";
-import { useEffect } from "react";
 
 interface IFormInput {
   name: string;
   dob: {
     day: string;
-    month: string;
+    month:
+      | "January"
+      | "February"
+      | "March"
+      | "April"
+      | "May"
+      | "June"
+      | "July"
+      | "August"
+      | "September"
+      | "October"
+      | "November"
+      | "December";
     year: string;
   };
-  gender: string;
+  gender:
+    | "male"
+    | "female"
+    | "non-binary"
+    | "something-else"
+    | "prefer-not-to-say";
 }
 
 export default function RegisterFormStepThird() {

@@ -155,12 +155,19 @@ export const login = async (req, res, next) => {
     }
 
     // 4. Generate token
-    const accessToken = token({ _id: userExist._id }, "1h");
+    const accessToken = token({ _id: userExist._id }, "1h"); // access token 1 hour
+    const refreshToken = token({ _id: userExist._id }, "1d"); // refresh token 1 day
+
+    userExist.refreshToken = refreshToken;
+    await userExist.save();
+
     // 5. Response token, user info
     userExist.password = undefined;
+
     return res.status(200).json({
       message: "Login successfully!",
-      accessToken,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
       user: userExist,
     });
   } catch (error) {

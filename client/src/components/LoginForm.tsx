@@ -1,7 +1,7 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { joiResolver } from "@hookform/resolvers/joi";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { loginSchema } from "@/validations/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PasswordInput } from "./ui/password-input";
+import { login } from "@/services/authServices";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
   email: string;
@@ -23,20 +27,24 @@ interface IFormInput {
 }
 
 export default function LoginForm() {
-  const form = useForm<IFormInput>({
-    resolver: joiResolver(loginSchema),
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  const [submitting, setSubmitting] = useState(false);
-
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // Simulate form submission
-    setSubmitting(true);
-    console.log("Submitting form with data:", data);
-    // Perform your actual form submission logic here
-    // For example, make an API call to your server
-    // After successful submission, reset form and state
-    setSubmitting(false);
+    try {
+      await login({ email: data.email, password: data.password });
+
+      // router.push("/home");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -57,6 +65,23 @@ export default function LoginForm() {
                   {...field}
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                   type="email"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-primaryColor">Password</FormLabel>
+              <FormControl>
+                <PasswordInput
+                  {...field}
+                  type="text"
+                  className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />
               </FormControl>
               <FormMessage />

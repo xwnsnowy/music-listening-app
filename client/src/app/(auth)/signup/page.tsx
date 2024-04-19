@@ -1,6 +1,6 @@
 "use client";
 
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/RegisterFormSteps/RegisterForm";
 import SocialMedia from "@/components/SocialMedia";
 import Link from "next/link";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";

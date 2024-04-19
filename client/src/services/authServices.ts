@@ -44,12 +44,17 @@ export function signup(data: SignUpData) {
 
 // Login
 export function login(data: LoginData) {
+  console.log("login");
   return axiosConfig.post(`/auth/login`, data)
-    .then(response => response.data)
+    .then(response => {
+      console.log("Response data:", response.data); // Log response data
+      return response.data;
+    })
     .catch(error => {
       throw error;
     });
 }
+
 
 // Logout
 export function logout() {

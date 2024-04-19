@@ -5,7 +5,7 @@ import { BsFillSearchHeartFill } from "react-icons/bs";
 import { HiHome } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
-import Button from "./Button";
+import Button from "../Button";
 import Link from "next/link";
 
 interface HeaderProps {

@@ -10,7 +10,7 @@ import {
   selectName,
   selectPassword,
 } from "@/lib/features/register/registerSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppSelector } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -27,7 +27,7 @@ import {
 import { termsAndConditionsSchema } from "@/validations/auth";
 import Link from "next/link";
 import { signup } from "@/services/authServices";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
   receiveMarketingMessages?: boolean;

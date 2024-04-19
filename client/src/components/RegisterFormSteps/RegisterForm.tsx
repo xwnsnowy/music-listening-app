@@ -1,14 +1,12 @@
 "use client";
 
 import { useAppSelector } from "@/lib/hooks";
-import {
-  RegisterFormStepFirst,
-  RegisterFormStepSecond,
-  RegisterFormStepThird,
-  RegisterFormStepFourth,
-} from "@/components/RegisterFormSteps";
 import { type ReactElement } from "react";
 import { selectCurrentStep } from "@/lib/features/register/registerSlice";
+import RegisterFormStepFirst from "./RegisterFormStepFirst";
+import RegisterFormStepSecond from "./RegisterFormStepSecond";
+import RegisterFormStepThird from "./RegisterFormStepThird";
+import RegisterFormStepFourth from "./RegisterFormStepFourth";
 
 const RegisterForm = (): ReactElement => {
   const currentStep = useAppSelector(selectCurrentStep);

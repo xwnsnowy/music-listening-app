@@ -3,6 +3,10 @@ import LoginForm from "@/components/LoginForm";
 import SocialMedia from "@/components/SocialMedia";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Login",
+};
+
 const Login = () => {
   return (
     <div className="max-w-[734px] w-full rounded-lg bg-bgBase flex flex-col items-center justify-center py-8  font-circular">

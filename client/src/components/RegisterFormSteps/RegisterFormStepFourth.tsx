@@ -27,6 +27,7 @@ import {
 import { termsAndConditionsSchema } from "@/validations/auth";
 import Link from "next/link";
 import { signup } from "@/services/authServices";
+import { useRouter } from "next/router";
 
 interface IFormInput {
   receiveMarketingMessages?: boolean;
@@ -34,6 +35,8 @@ interface IFormInput {
 }
 
 export default function RegisterFormStepFourth() {
+  const router = useRouter();
+
   const email = useAppSelector(selectEmail);
   const password = useAppSelector(selectPassword);
   const name = useAppSelector(selectName);
@@ -60,7 +63,7 @@ export default function RegisterFormStepFourth() {
       await signup(userData);
       console.log("Registration successful");
 
-      // router.push("/success");
+      router.push("/login");
     } catch (error) {
       console.error("Error submitting form:", error);
     }

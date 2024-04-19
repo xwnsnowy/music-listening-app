@@ -9,12 +9,12 @@ import { BsFillSearchHeartFill } from "react-icons/bs";
 
 import { twMerge } from "tailwind-merge";
 
-import Box from "./Box";
-import SiderbarItem from "./SiderbarItem";
-import Library from "./Library";
+import Box from "../../Box";
+import SiderbarItem from "../Item/SiderbarItem";
+import Library from "../../Library";
 import { HiHome } from "react-icons/hi";
 
-const Siderbar = () => {
+const LeftSidebar = () => {
   const pathname = usePathname();
 
   const routes = useMemo(
@@ -54,4 +54,4 @@ const Siderbar = () => {
   );
 };
 
-export default Siderbar;
+export default LeftSidebar;

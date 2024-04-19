@@ -1,4 +1,4 @@
-import Siderbar from "@/components/Siderbar";
+import Siderbar from "@/components/Siderbar/LeftSiderbar/LeftSidebar";
 
 const Search = () => {
   return (

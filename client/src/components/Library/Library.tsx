@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
-import Button from "./Button";
+import Button from "../Button/Button";
 import { BiSearch } from "react-icons/bi";
 import { HiMiniBarsArrowDown, HiMiniBarsArrowUp } from "react-icons/hi2";
 import { motion } from "framer-motion";
@@ -84,7 +84,9 @@ const Library = () => {
               ease: [0.3, 0, 0.4, 1],
               delay: inputVisible ? 0.1 : 0,
             }}
-            className={`${inputVisible ? "px-8 py-2" : ""} relative h-8 overflow-ellipsis rounded bg-tintedHighLight text-sm font-light text-primaryColor outline-none transition-width placeholder:text-xs placeholder:text-secondaryColor`}
+            className={`${
+              inputVisible ? "px-8 py-2" : ""
+            } relative h-8 overflow-ellipsis rounded bg-tintedHighLight text-sm font-light text-primaryColor outline-none transition-width placeholder:text-xs placeholder:text-secondaryColor`}
             maxLength={80}
             autoCorrect="off"
             autoCapitalize="off"

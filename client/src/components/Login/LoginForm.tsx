@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ChangeEvent, useState } from "react";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,11 +17,12 @@ import { Input } from "@/components/ui/input";
 
 import { loginSchema } from "@/validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PasswordInput } from "./ui/password-input";
+import { PasswordInput } from "../ui/password-input";
 import { login } from "@/services/authServices";
 import { useRouter } from "next/navigation";
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import { saveAccessToken } from "@/utils/Helpers";
 
 interface IFormInput {
   email: string;
@@ -48,21 +48,10 @@ export default function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      console.log(response.accessToken);
+
       if (response?.accessToken) {
-        // Lưu Header.Payload vào Local Storage
-        localStorage.setItem(
-          "accessTokenHeaderPayload",
-          response.accessToken.split(".")[0] +
-            "." +
-            response.accessToken.split(".")[1]
-        );
-
-        // Lưu Signature vào Cookie sử dụng cookies() function của Next.js
-        setCookie("accessTokenSignature", response.accessToken.split(".")[2]);
-
-        // Them User va AccessToken vao AuthContext
-        authContext.login(response.user, response.accessToken);
+        authContext.login(response.user);
+        saveAccessToken(response.accessToken);
 
         router.push("/");
       } else {
@@ -106,7 +95,7 @@ export default function LoginForm() {
               <FormControl>
                 <PasswordInput
                   {...field}
-                  type="text"
+                  type="password"
                   className="bg-transparent text-primaryColor rounded-none min-h-12"
                 />
               </FormControl>

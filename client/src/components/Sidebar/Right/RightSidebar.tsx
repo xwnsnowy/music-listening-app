@@ -5,16 +5,19 @@ import { GiImperialCrown } from "react-icons/gi";
 
 import { twMerge } from "tailwind-merge";
 
-import Box from "../../Box";
+import Box from "../../Box/Box";
 import SiderbarItem from "../Item/SiderbarItem";
-import Library from "../../Library";
+import Library from "../../Library/Library";
 import { HiHome } from "react-icons/hi";
-import Button from "@/components/Button";
+import Button from "@/components/Button/Button";
 import { FaUser, FaUsers } from "react-icons/fa";
 import Link from "next/link";
 import useAuthModal from "@/hooks/useAuthModal";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 const RightSidebar = () => {
+  const { user } = useAuthContext();
+
   const authModel = useAuthModal();
 
   return (

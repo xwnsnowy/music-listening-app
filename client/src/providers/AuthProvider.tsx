@@ -1,9 +1,13 @@
 "use client";
 
 import { AuthContext } from "@/context/AuthContext";
-import { getAccessToken } from "@/utils/Helpers";
-import { deleteCookie } from "cookies-next";
-import { useState } from "react";
+import {
+  getAccessToken,
+  isAccessTokenValid,
+  removeAccessToken,
+} from "@/utils/Helpers";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface User {
   _id: string;
@@ -27,39 +31,37 @@ interface User {
   refreshToken?: string | null;
 }
 
-interface AccessToken {
-  accessToken: string;
-}
-
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(
-    getAccessToken()
-  );
 
-  const login = (userData: User, accessToken: AccessToken) => {
+  useEffect(() => {
+    const checkTokenValidity = () => {
+      if (!isAccessTokenValid()) {
+        logout();
+        router.push("/login");
+      }
+    };
+
+    checkTokenValidity();
+  }, []);
+
+  const login = (userData: User) => {
     setUser(userData);
-    setAccessToken(accessToken.accessToken);
   };
 
   const logout = () => {
-    // Xóa user và accessToken từ state
     setUser(null);
-    setAccessToken(null);
 
-    // Xóa TokenHeaderPayload từ Local Storage
-    localStorage.removeItem("accessTokenHeaderPayload");
-
-    // Xóa TokenSignature từ Cookie Next
-    deleteCookie("accessTokenSignature");
+    removeAccessToken();
   };
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

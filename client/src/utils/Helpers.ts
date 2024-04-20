@@ -1,25 +1,25 @@
 import { jwtDecode } from "jwt-decode";
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie, deleteCookie } from 'cookies-next';
 
-/**
- * Lấy access token từ localStorage và cookie
- * @returns {string | null} - Trả về access token nếu có, ngược lại trả về null
- */
 export const getAccessToken = (): string | null => {
-  const tokenHeaderPayload = localStorage.getItem('accessTokenHeaderPayload');
-  const tokenSignature = getCookie('accessTokenSignature');
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
-  if (tokenHeaderPayload && tokenSignature) {
-    return `${tokenHeaderPayload}.${tokenSignature}`;
+  try {
+    const tokenHeaderPayload = localStorage.getItem('accessTokenHeaderPayload');
+    const tokenSignature = getCookie('accessTokenSignature');
+
+    if (tokenHeaderPayload && tokenSignature) {
+      return `${tokenHeaderPayload}.${tokenSignature}`;
+    }
+  } catch (error) {
+    console.error('Error getting access token:', error);
   }
 
   return null;
 };
 
-/**
- * Kiểm tra xem access token có hợp lệ hay không
- * @returns {boolean} - Trả về true nếu access token hợp lệ, ngược lại trả về false
- */
 export const isAccessTokenValid = (): boolean => {
   const accessToken = getAccessToken();
 
@@ -28,7 +28,7 @@ export const isAccessTokenValid = (): boolean => {
   }
 
   try {
-    const decodedToken = jwtDecode(accessToken);
+    const decodedToken = jwtDecode<{ exp?: number }>(accessToken);
     const currentTime = Math.floor(Date.now() / 1000);
 
     return decodedToken.exp ? decodedToken.exp >= currentTime : false;
@@ -37,3 +37,33 @@ export const isAccessTokenValid = (): boolean => {
     return false;
   }
 };
+
+export const removeAccessToken = (): void => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    localStorage.removeItem('accessTokenHeaderPayload');
+    deleteCookie('accessTokenSignature');
+  } catch (error) {
+    console.error('Error removing access token:', error);
+  }
+};
+
+export const saveAccessToken = (token: string): void => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    const [header, payload, signature] = token.split('.');
+    const headerPayload = `${header}.${payload}`;
+
+    localStorage.setItem('accessTokenHeaderPayload', headerPayload);
+    setCookie('accessTokenSignature', signature);
+  } catch (error) {
+    console.error('Error saving access token:', error);
+  }
+};
+

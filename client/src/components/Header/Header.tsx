@@ -5,7 +5,7 @@ import { BsFillSearchHeartFill } from "react-icons/bs";
 import { HiHome } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
-import Button from "../Button";
+import Button from "../Button/Button";
 import Link from "next/link";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
@@ -16,8 +16,6 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
-
-  const authContext = useAuthContext();
 
   const { user, logout } = useAuthContext();
 

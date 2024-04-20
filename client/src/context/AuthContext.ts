@@ -25,12 +25,10 @@ interface AccessToken {
 
 export const AuthContext = createContext<{
   user: User | null;
-  accessToken: string | null;
-  login: (userData: User, accessToken: AccessToken) => void;
+  login: (userData: User) => void;
   logout: () => void;
 }>({
   user: null,
-  accessToken: null,
   login: () => { },
   logout: () => { },
 });

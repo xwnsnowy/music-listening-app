@@ -9,9 +9,9 @@ import { BsFillSearchHeartFill } from "react-icons/bs";
 
 import { twMerge } from "tailwind-merge";
 
-import Box from "../../Box";
+import Box from "../../Box/Box";
 import SiderbarItem from "../Item/SiderbarItem";
-import Library from "../../Library";
+import Library from "../../Library/Library";
 import { HiHome } from "react-icons/hi";
 
 const LeftSidebar = () => {

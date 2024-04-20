@@ -1,5 +1,5 @@
 import Header from "@/components/Header/Header";
-import ListItem from "@/components/ListItem";
+import ListItem from "@/components/ListItem/ListItem";
 
 const MainContent = () => {
   return (

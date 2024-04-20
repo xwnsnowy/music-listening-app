@@ -10,11 +10,10 @@ import {
 interface ModalProps {
   isOpen: boolean;
   onChange: (open: boolean) => void;
-  title: string;
-  description: string;
+  title?: string | null;
+  description?: string | null;
   children: React.ReactNode;
 }
-
 const Modal: React.FC<ModalProps> = ({
   children,
   isOpen,
@@ -24,12 +23,14 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
-      <DialogContent className="fixed drop-shadow-md border border-neutral-700max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md:max-w-[450px] rounded-md bg-neutral-800 p-5 focus:outline-none">
+      <DialogContent className="fixed drop-shadow-md border border-neutral-700 max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md:max-w-[450px] rounded-md bg-neutral-800 p-5 focus:outline-none">
         <DialogHeader>
-          <DialogTitle className="text-primaryColor text-center text-xl font-bold">
-            {title}
-          </DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          {title && (
+            <DialogTitle className="text-primaryColor text-center text-xl font-bold">
+              {title}
+            </DialogTitle>
+          )}
+          {description && <DialogDescription>{description}</DialogDescription>}
           <div>{children}</div>
         </DialogHeader>
       </DialogContent>

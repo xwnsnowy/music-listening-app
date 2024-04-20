@@ -1,6 +1,6 @@
-import Button from "@/components/Button";
-import LoginForm from "@/components/LoginForm";
-import SocialMedia from "@/components/SocialMedia";
+import Button from "@/components/Button/Button";
+import LoginForm from "@/components/Login/LoginForm";
+import SocialMedia from "@/components/SocialMedia/SocialMedia";
 import Link from "next/link";
 
 export const metadata = {

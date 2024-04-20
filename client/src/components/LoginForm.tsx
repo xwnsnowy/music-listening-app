@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ChangeEvent, useState } from "react";
 import { z } from "zod";
@@ -20,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordInput } from "./ui/password-input";
 import { login } from "@/services/authServices";
 import { useRouter } from "next/navigation";
+import { setCookie, getCookie } from "cookies-next";
 
 interface IFormInput {
   email: string;
@@ -39,9 +41,37 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
-      await login({ email: data.email, password: data.password });
+      const response = await login({
+        email: data.email,
+        password: data.password,
+      });
+      console.log(response.accessToken);
+      if (response?.accessToken) {
+        // Lưu Header.Payload vào Local Storage
+        localStorage.setItem(
+          "accessTokenHeaderPayload",
+          response.accessToken.split(".")[0] +
+            "." +
+            response.accessToken.split(".")[1]
+        );
 
-      // router.push("/home");
+        // Lưu Signature vào Cookie sử dụng cookies() function của Next.js
+        setCookie("accessTokenSignature", response.accessToken.split(".")[2], {
+          httpOnly: true,
+        });
+
+        // const storedCookie = getCookie("accessTokenSignature");
+
+        // if (storedCookie) {
+        //   console.log("Cookie added successfully:", storedCookie);
+        // } else {
+        //   console.error("Failed to add cookie");
+        // }
+
+        // router.push("/home");
+      } else {
+        console.error("Login failed:", response?.message);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     }

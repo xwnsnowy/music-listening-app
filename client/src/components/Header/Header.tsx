@@ -7,6 +7,7 @@ import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
 import Button from "../Button";
 import Link from "next/link";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -16,8 +17,13 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
 
+  const authContext = useAuthContext();
+
+  const { user, logout } = useAuthContext();
+
   const handleLogout = () => {
-    //Handle logout
+    logout();
+    router.push("/");
   };
 
   return (
@@ -61,20 +67,27 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         </div>
         <div className="flex items-center justify-between gap-x-4">
           <>
-            <div>
-              <Link href="/signup">
-                <Button className="transform bg-transparent px-4 text-primaryColor hover:scale-110">
-                  Sign Up
-                </Button>
-              </Link>
-            </div>
-            <div>
-              <Link href="/login">
-                <Button className="transform px-10 py-3 hover:scale-110">
-                  Log In
-                </Button>
-              </Link>
-            </div>
+            {user ? (
+              <Button
+                onClick={handleLogout}
+                className="transform px-10 py-3 hover:scale-110"
+              >
+                Log Out
+              </Button>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <Button className="transform bg-transparent px-4 text-primaryColor hover:scale-110">
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link href="/login">
+                  <Button className="transform px-10 py-3 hover:scale-110">
+                    Log In
+                  </Button>
+                </Link>
+              </>
+            )}
           </>
         </div>
       </div>

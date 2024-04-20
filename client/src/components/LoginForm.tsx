@@ -22,6 +22,7 @@ import { PasswordInput } from "./ui/password-input";
 import { login } from "@/services/authServices";
 import { useRouter } from "next/navigation";
 import { setCookie, getCookie } from "cookies-next";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 interface IFormInput {
   email: string;
@@ -30,6 +31,8 @@ interface IFormInput {
 
 export default function LoginForm() {
   const router = useRouter();
+
+  const authContext = useAuthContext();
 
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -56,19 +59,12 @@ export default function LoginForm() {
         );
 
         // Lưu Signature vào Cookie sử dụng cookies() function của Next.js
-        setCookie("accessTokenSignature", response.accessToken.split(".")[2], {
-          httpOnly: true,
-        });
+        setCookie("accessTokenSignature", response.accessToken.split(".")[2]);
 
-        // const storedCookie = getCookie("accessTokenSignature");
+        // Them User va AccessToken vao AuthContext
+        authContext.login(response.user, response.accessToken);
 
-        // if (storedCookie) {
-        //   console.log("Cookie added successfully:", storedCookie);
-        // } else {
-        //   console.error("Failed to add cookie");
-        // }
-
-        // router.push("/home");
+        router.push("/");
       } else {
         console.error("Login failed:", response?.message);
       }

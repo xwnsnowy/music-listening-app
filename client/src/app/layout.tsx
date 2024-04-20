@@ -29,6 +29,7 @@ const circular = localFont({
 
 import { Figtree } from "next/font/google";
 import ModalProvider from "@/providers/ModalProvider";
+import { AuthProvider } from "@/providers/AuthProvider";
 const inter = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -45,7 +46,9 @@ export default function RootLayout({
     <html lang="en" className={`${circular.variable}`}>
       <ModalProvider />
       <StoreProvider>
-        <body className={inter.className}>{children}</body>
+        <AuthProvider>
+          <body className={inter.className}>{children}</body>
+        </AuthProvider>
       </StoreProvider>
     </html>
   );

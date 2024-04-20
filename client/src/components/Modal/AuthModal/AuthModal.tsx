@@ -2,8 +2,12 @@
 
 import useAuthModal from "@/hooks/useAuthModal";
 import Modal from "../Modal";
+import { isAccessTokenValid } from "@/utils/Helpers";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const AuthModal = () => {
+  const router = useRouter();
   const { onClose, isOpen } = useAuthModal();
 
   const onChange = (open: boolean) => {
@@ -12,12 +16,12 @@ const AuthModal = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if(session){
-  //     Router.refresh();
-  //     onClose();
-  //   }
-  // },[sesion, router, onClose])
+  useEffect(() => {
+    if (isAccessTokenValid()) {
+      router.refresh();
+      onClose();
+    }
+  }, [isAccessTokenValid, router, onClose]);
 
   return (
     <Modal

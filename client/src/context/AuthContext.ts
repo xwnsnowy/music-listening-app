@@ -5,7 +5,6 @@ import { createContext } from 'react';
 interface User {
   _id: string;
   email: string;
-  password: string;
   dob?: {
     day: string;
     month: string;
@@ -16,11 +15,6 @@ interface User {
   phoneNumber?: string;
   address?: string;
   avatar?: string;
-  refreshToken?: string | null;
-}
-
-interface AccessToken {
-  accessToken: string;
 }
 
 export const AuthContext = createContext<{

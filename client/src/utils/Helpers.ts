@@ -23,7 +23,7 @@ export const getAccessToken = (): string | null => {
 export const isAccessTokenValid = (): boolean => {
   const accessToken = getAccessToken();
 
-  if (!accessToken) {
+  if (accessToken === null) {
     return false;
   }
 

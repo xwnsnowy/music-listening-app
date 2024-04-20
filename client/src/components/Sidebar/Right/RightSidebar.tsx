@@ -14,6 +14,7 @@ import { FaUser, FaUsers } from "react-icons/fa";
 import Link from "next/link";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import Image from "next/image";
 
 const RightSidebar = () => {
   const { user } = useAuthContext();
@@ -24,16 +25,18 @@ const RightSidebar = () => {
     <div className="flex flex-col items-center px-4 py-6 w-20 gap-6">
       {/* User Profile */}
 
-      <div className="w-12 h-12 rounded-full bg-neutral-600  cursor-pointer flex items-center justify-center relative">
-        {/* Image of the authenticated user or the first letter */}
-      </div>
-
-      <Button
-        className="bg-emerald-500 flex items-center justify-center rounded-sm"
-        onClick={authModel.onOpen}
-      >
-        <FaUser className="text-black" size={20} />
-      </Button>
+      {user ? (
+        <div className="w-12 h-12 rounded-full bg-neutral-600  cursor-pointer flex items-center justify-center relative">
+          {user?.avatar ? <Image src={user?.avatar} alt="" /> : <p>abc</p>}
+        </div>
+      ) : (
+        <Button
+          className="bg-emerald-500 flex items-center justify-center rounded-sm"
+          onClick={authModel.onOpen}
+        >
+          <FaUser className="text-black" size={20} />
+        </Button>
+      )}
 
       {/* Admin Action */}
 

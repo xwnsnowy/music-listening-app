@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 interface User {
   _id: string;
   email: string;
-  password: string;
   dob?: {
     day: string;
     month: string;
@@ -28,7 +27,6 @@ interface User {
   phoneNumber?: string;
   address?: string;
   avatar?: string;
-  refreshToken?: string | null;
 }
 
 interface AuthProviderProps {
@@ -38,24 +36,29 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    getAccessToken()
+  );
 
   useEffect(() => {
     const checkTokenValidity = () => {
-      if (!isAccessTokenValid()) {
+      if (accessToken && !isAccessTokenValid()) {
         logout();
         router.push("/login");
       }
     };
 
     checkTokenValidity();
-  }, []);
+  }, [accessToken]);
 
   const login = (userData: User) => {
     setUser(userData);
+    setAccessToken(getAccessToken());
   };
 
   const logout = () => {
     setUser(null);
+    setAccessToken(null);
 
     removeAccessToken();
   };

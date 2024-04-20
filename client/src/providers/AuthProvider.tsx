@@ -2,7 +2,8 @@
 
 import { AuthContext } from "@/context/AuthContext";
 import { getAccessToken } from "@/utils/Helpers";
-import { useEffect, useState } from "react";
+import { deleteCookie } from "cookies-next";
+import { useState } from "react";
 
 interface User {
   _id: string;
@@ -46,8 +47,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
+    // Xóa user và accessToken từ state
     setUser(null);
     setAccessToken(null);
+
+    // Xóa TokenHeaderPayload từ Local Storage
+    localStorage.removeItem("accessTokenHeaderPayload");
+
+    // Xóa TokenSignature từ Cookie Next
+    deleteCookie("accessTokenSignature");
   };
 
   return (

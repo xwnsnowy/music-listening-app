@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 
 interface User {
   _id: string;
+  name: string;
   email: string;
   dob?: {
     day: string;
@@ -23,7 +24,7 @@ interface User {
     | "non-binary"
     | "something-else"
     | "prefer-not-to-say";
-  role: "member" | "admin" | "guest";
+  role: "member" | "admin" | "guest" | "super-admin";
   phoneNumber?: string;
   address?: string;
   avatar?: string;

@@ -63,31 +63,20 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <BsFillSearchHeartFill size={20} className="text-black" />
           </button>
         </div>
-        <div className="flex items-center justify-between gap-x-4">
-          <>
-            {user ? (
-              <Button
-                onClick={handleLogout}
-                className="transform px-10 py-3 hover:scale-110"
-              >
-                Log Out
+        {user === null && (
+          <div className="flex items-center justify-between gap-x-4">
+            <Link href="/signup">
+              <Button className="transform bg-transparent px-4 text-primaryColor hover:scale-110">
+                Sign Up
               </Button>
-            ) : (
-              <>
-                <Link href="/signup">
-                  <Button className="transform bg-transparent px-4 text-primaryColor hover:scale-110">
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link href="/login">
-                  <Button className="transform px-10 py-3 hover:scale-110">
-                    Log In
-                  </Button>
-                </Link>
-              </>
-            )}
-          </>
-        </div>
+            </Link>
+            <Link href="/login">
+              <Button className="transform px-10 py-3 hover:scale-110">
+                Log In
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
       {children}
     </div>

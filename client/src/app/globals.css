@@ -7,4 +7,11 @@
     --tinted-base: 255 255 255;
     --tinted-highLight: 255 255 255;
   }
+
+  input[type="file"]::file-selector-button {
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+ 
+  
 }

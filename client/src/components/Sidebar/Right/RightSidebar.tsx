@@ -2,37 +2,56 @@
 
 import { BsMusicNoteList } from "react-icons/bs";
 import { GiImperialCrown } from "react-icons/gi";
-
-import { twMerge } from "tailwind-merge";
-
-import Box from "../../Box/Box";
-import SiderbarItem from "../Item/SiderbarItem";
-import Library from "../../Library/Library";
-import { HiHome } from "react-icons/hi";
+import { LogOut } from "lucide-react";
 import Button from "@/components/Button/Button";
 import { FaUser, FaUsers } from "react-icons/fa";
+import { UserPlus } from "lucide-react";
 import Link from "next/link";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import Image from "next/image";
+import { PiMusicNotesPlusBold } from "react-icons/pi";
+import useArtistModal from "@/hooks/useArtistModal";
 
 const RightSidebar = () => {
-  const { user } = useAuthContext();
+  const { user, logout } = useAuthContext();
 
-  const authModel = useAuthModal();
+  const authModal = useAuthModal();
+  const artistModal = useArtistModal();
+
+  const isSuperAdmin = user?.role === "super-admin";
+
+  const getNameAvatar = (name: string): string => {
+    if (!name) return "";
+
+    const lastName = name.split(" ").pop();
+    if (!lastName) return "";
+
+    return lastName.charAt(0).toUpperCase();
+  };
 
   return (
     <div className="flex flex-col items-center px-4 py-6 w-20 gap-6">
       {/* User Profile */}
-
       {user ? (
         <div className="w-12 h-12 rounded-full bg-neutral-600  cursor-pointer flex items-center justify-center relative">
-          {user?.avatar ? <Image src={user?.avatar} alt="" /> : <p>abc</p>}
+          {user?.avatar ? (
+            <Image
+              src={user?.avatar}
+              alt=""
+              fill
+              className="w-full absolute h-full object-cover rounded-full"
+            />
+          ) : (
+            <span className="text-primaryColor font-bold text-lg">
+              {getNameAvatar(user?.name)}
+            </span>
+          )}
         </div>
       ) : (
         <Button
           className="bg-emerald-500 flex items-center justify-center rounded-sm"
-          onClick={authModel.onOpen}
+          onClick={authModal.onOpen}
         >
           <FaUser className="text-black" size={20} />
         </Button>
@@ -53,6 +72,27 @@ const RightSidebar = () => {
         <BsMusicNoteList size={20} className="text-neutral-400 text-2xl" />
       </Link>
 
+      {/* Loading these option only if its matches the super admin id */}
+      {/* {isSuperAdmin && ( */}
+      <Button
+        className="bg-transparent flex items-center justify-center rounded-sm py-2"
+        onClick={artistModal.onOpen}
+      >
+        <UserPlus
+          className="text-2xl text-neutral-400 hover:scale-110 transition"
+          size={20}
+        />
+      </Button>
+      {/* )} */}
+      {isSuperAdmin && (
+        <Button className="bg-transparent flex items-center justify-center rounded-sm py-2">
+          <PiMusicNotesPlusBold
+            className="text-2xl text-neutral-400 hover:scale-110 transition"
+            size={20}
+          />
+        </Button>
+      )}
+
       {/* Premium User  */}
 
       <div className="flex flex-col items-center justify-center gap-y-2 mt-auto relative cursor-pointer">
@@ -64,6 +104,16 @@ const RightSidebar = () => {
           Go <span className="text-primaryColor">Pro</span>
         </p>
       </div>
+
+      {user && (
+        <Button className="flex items-center justify-center rounded-sm bg-emerald-200">
+          <LogOut
+            className="text-black hover:scale-105"
+            size={20}
+            onClick={() => logout()}
+          />
+        </Button>
+      )}
     </div>
   );
 };

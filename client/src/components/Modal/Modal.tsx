@@ -23,14 +23,18 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   return (
     <Dialog open={isOpen} defaultOpen={isOpen} onOpenChange={onChange}>
-      <DialogContent className="fixed drop-shadow-md border border-neutral-700 max-h-full h-full md:h-auto md:max-h-[85vh] w-full md:w-[90vw] md:max-w-[450px] rounded-md bg-neutral-800 p-5 focus:outline-none">
+      <DialogContent className="fixed drop-shadow-md border border-neutral-700 max-h-full h-full md:h-auto md:max-h-[95vh] w-full md:w-[90vw] md:max-w-[450px] rounded-md bg-neutral-800 p-5 focus:outline-none">
         <DialogHeader>
           {title && (
             <DialogTitle className="text-primaryColor text-center text-xl font-bold">
               {title}
             </DialogTitle>
           )}
-          {description && <DialogDescription>{description}</DialogDescription>}
+          {description && (
+            <DialogDescription className="text-center">
+              {description}
+            </DialogDescription>
+          )}
           <div>{children}</div>
         </DialogHeader>
       </DialogContent>

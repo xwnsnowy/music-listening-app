@@ -1,0 +1,259 @@
+"use client";
+
+import Modal from "../Modal";
+import { useRouter } from "next/navigation";
+import SocialMedia from "@/components/SocialMedia/SocialMedia";
+import LoginForm from "@/components/Login/LoginForm";
+import Link from "next/link";
+import useArtistModal from "@/hooks/useArtistModal";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { artistSchema } from "@/validations/artist";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+
+interface IFormInput {
+  name: string;
+  picture?: FileList | null;
+  description?: string | null;
+  followers?: number | null;
+  facebook?: string | null;
+  twitter?: string | null;
+  instagram?: string | null;
+  linkedin?: string | null;
+}
+
+const ArtistModal = () => {
+  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { onClose, isOpen } = useArtistModal();
+
+  const onChange = () => {
+    form.reset();
+    onClose();
+  };
+
+  const form = useForm<z.infer<typeof artistSchema>>({
+    resolver: zodResolver(artistSchema),
+    defaultValues: {
+      name: "",
+      picture: undefined,
+      description: "",
+      followers: 0,
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      linkedin: "",
+    },
+  });
+
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const pictureFile = data.picture?.[0];
+
+      const updatedData = {
+        ...data,
+        pictureFile,
+      };
+
+      console.log("Updated Data:", updatedData);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
+  };
+  const fileRef = form.register("picture");
+  return (
+    <Modal
+      title="Add a new Artist"
+      description="Create your own artist over here"
+      isOpen={isOpen}
+      onChange={onChange}
+    >
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 min-w-72 flex flex-col text-primaryColor "
+          encType="multipart/form-data"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="Artist Name"
+                    {...field}
+                    disabled={isLoading}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="picture"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-primaryColor">
+                  Select an image file
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...fileRef}
+                    accept="image/*"
+                    multiple={false}
+                    disabled={isLoading}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="file"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="Description"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="followers"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="Number of Followers"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="number"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="facebook"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="https://www.facebook.com/"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="twitter"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="https://www.twitter.com/"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="instagram"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="https://www.instagram.com/"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="https://www.linkedin.com/"
+                    disabled={isLoading}
+                    {...field}
+                    className="bg-transparent border-none mb-2 placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
+                    type="text"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="text-bgBase text-base bg-[#1ed760] mt-10 rounded-md hover:bg-[#1ed760] transform w-full font-semibold min-h-10 mx-auto"
+          >
+            Submit
+          </Button>
+        </form>
+      </Form>
+    </Modal>
+  );
+};
+
+export default ArtistModal;

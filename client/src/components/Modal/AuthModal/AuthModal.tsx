@@ -13,10 +13,9 @@ const AuthModal = () => {
   const router = useRouter();
   const { onClose, isOpen } = useAuthModal();
 
-  const onChange = (open: boolean) => {
-    if (!open) {
-      onClose();
-    }
+  const onChange = () => {
+    console.log("Close");
+    onClose();
   };
 
   useEffect(() => {

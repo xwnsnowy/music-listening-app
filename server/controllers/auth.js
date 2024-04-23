@@ -174,3 +174,37 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+export const refreshAccessToken = async (req, res, next) => {
+  try {
+    // Lấy refreshToken từ request body hoặc headers
+    const refreshToken =
+      req.body.refreshToken || req.headers["x-refresh-token"];
+
+    if (!refreshToken) {
+      return res.status(401).json({
+        message: "Refresh token is required",
+      });
+    }
+
+    // Tìm user có refreshToken trong cơ sở dữ liệu
+    const user = await User.findOne({ refreshToken });
+
+    if (!user) {
+      return res.status(403).json({
+        message: "Invalid refresh token",
+      });
+    }
+
+    // Tạo một accessToken mới
+    const accessToken = token({ _id: user._id }, "1h"); // accessToken 1 hour
+
+    // Trả về accessToken mới
+    return res.status(200).json({
+      message: "Refreshed access token successfully!",
+      accessToken,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
     dob: {
       type: Object,
     },
@@ -35,9 +39,6 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     avatar: {
-      type: String,
-    },
-    refreshToken: {
       type: String,
     },
     refreshToken: {

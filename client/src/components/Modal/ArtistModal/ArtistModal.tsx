@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { createArtist } from "@/services/artistServices";
 
 interface IFormInput {
   name: string;
@@ -62,19 +63,37 @@ const ArtistModal = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
+      setIsLoading(true);
+
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+
       const pictureFile = data.picture?.[0];
+      if (pictureFile) {
+        formData.append("picture", pictureFile);
+      }
 
-      const updatedData = {
-        ...data,
-        pictureFile,
-      };
+      formData.append("description", data.description || "");
+      formData.append("followers", String(data.followers || 0));
+      formData.append("facebook", data.facebook || "");
+      formData.append("twitter", data.twitter || "");
+      formData.append("instagram", data.instagram || "");
+      formData.append("linkedin", data.linkedin || "");
 
-      console.log("Updated Data:", updatedData);
+      const response = await createArtist(formData);
+
+      console.log("Form Data:", formData);
+      console.log("response:", response);
     } catch (error) {
       console.error("Error submitting form:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
   const fileRef = form.register("picture");
+
   return (
     <Modal
       title="Add a new Artist"
@@ -119,7 +138,6 @@ const ArtistModal = () => {
                   <Input
                     {...fileRef}
                     accept="image/*"
-                    multiple={false}
                     disabled={isLoading}
                     className="bg-transparent border-none placeholder:text-secondaryColor bg-neutral-700 text-primaryColor rounded-md min-h-9"
                     type="file"

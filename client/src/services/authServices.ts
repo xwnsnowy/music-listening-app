@@ -44,10 +44,9 @@ export function signup(data: SignUpData) {
 
 // Login
 export function login(data: LoginData) {
-  console.log("login");
   return axiosConfig.post(`/auth/login`, data)
     .then(response => {
-      console.log("Response data:", response.data); // Log response data
+      console.log("Response data:", response.data);
       return response.data;
     })
     .catch(error => {

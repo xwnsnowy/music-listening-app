@@ -1,5 +1,7 @@
 import axiosConfig from './axiosConfig';
 
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY as string
+
 interface CreateArtist {
   name: string;
   picture?: File | null;
@@ -11,11 +13,12 @@ interface CreateArtist {
   linkedin?: string | null;
 }
 
+
 export function createArtist(formData: FormData) {
   return axiosConfig.post(`/artist/create`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
-      "API-Key": "tien thanh",
+      'API-Key': API_KEY
     },
   })
     .then(response => response.data)

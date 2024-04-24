@@ -23,6 +23,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { createArtist } from "@/services/artistServices";
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce, toast } from "react-toastify";
+import { useToast } from "@/hooks/useToastProvider";
 
 interface IFormInput {
   name: string;
@@ -37,6 +40,8 @@ interface IFormInput {
 
 const ArtistModal = () => {
   const router = useRouter();
+
+  const { showToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,10 +88,13 @@ const ArtistModal = () => {
 
       const response = await createArtist(formData);
 
+      showToast("success", "Add new Artist successfully !");
+
       console.log("Form Data:", formData);
       console.log("response:", response);
     } catch (error) {
       console.error("Error submitting form:", error);
+      showToast("error", "An error occurred while submitting the form!");
     } finally {
       setIsLoading(false);
     }

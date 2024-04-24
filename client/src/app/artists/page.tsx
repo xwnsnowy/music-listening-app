@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAllArtists } from "@/services/artistServices";
+import ArtistItem from "@/components/Artist/Item/ArtistItem";
 
 interface Artists {
   _id: string;
@@ -34,18 +35,20 @@ const Artists = () => {
 
   return (
     <div className="text-primaryColor">
-      {artists.map((artist) => (
-        <div key={artist._id}>
-          <p>{artist.name}</p>
-          {artist.picture && <img src={artist.picture} alt={artist.name} />}
-          {artist.description && <p>Description: {artist.description}</p>}
-          {artist.followers && <p>Followers: {artist.followers}</p>}
-          {artist.facebook && <p>Facebook: {artist.facebook}</p>}
-          {artist.twitter && <p>Twitter: {artist.twitter}</p>}
-          {artist.instagram && <p>Instagram: {artist.instagram}</p>}
-          {artist.linkedin && <p>LinkedIn: {artist.linkedin}</p>}
+      <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">
+        <h1>Our Popular Artists</h1>
+      </div>
+      {artists.length === 0 ? (
+        <h3 className="text-2xl font-semibold text-center mt-10 text-red-600">
+          No artists available
+        </h3>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-8 mt-4 px-4 gap-4">
+          {artists.map((artist) => (
+            <ArtistItem key={artist._id} onClick={() => {}} data={artist} />
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };

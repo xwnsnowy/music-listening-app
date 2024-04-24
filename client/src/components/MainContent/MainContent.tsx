@@ -35,9 +35,9 @@ const MainContent: React.FC<MainContentProps> = ({ children }) => {
               />
             </div>
           </Header>
-          <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">
+          {/* <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">
             <h1>Newest Songs</h1>
-          </div>
+          </div> */}
           {children}
         </div>
       </main>

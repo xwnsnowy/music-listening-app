@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { StoreProvider } from "./StoreProvider";
+import MainContent from "@/components/MainContent/MainContent";
 
 import localFont from "next/font/local";
 
@@ -50,7 +51,9 @@ export default function RootLayout({
       <StoreProvider>
         <AuthProvider>
           <body className={inter.className}>
-            <ToastProvider>{children}</ToastProvider>
+            <ToastProvider>
+              <MainContent>{children}</MainContent>
+            </ToastProvider>
           </body>
         </AuthProvider>
       </StoreProvider>

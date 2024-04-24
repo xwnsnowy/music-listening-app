@@ -1,10 +1,6 @@
 "use client";
 
 import Modal from "../Modal";
-import { useRouter } from "next/navigation";
-import SocialMedia from "@/components/SocialMedia/SocialMedia";
-import LoginForm from "@/components/Login/LoginForm";
-import Link from "next/link";
 import useArtistModal from "@/hooks/useArtistModal";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { artistSchema } from "@/validations/artist";
@@ -14,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { createArtist } from "@/services/artistServices";
 import "react-toastify/dist/ReactToastify.css";
-import { Bounce, toast } from "react-toastify";
 import { useToast } from "@/hooks/useToastProvider";
 
 interface IFormInput {
@@ -39,8 +33,6 @@ interface IFormInput {
 }
 
 const ArtistModal = () => {
-  const router = useRouter();
-
   const { showToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -88,13 +80,13 @@ const ArtistModal = () => {
 
       const response = await createArtist(formData);
 
-      showToast("success", "Add new Artist successfully !");
+      showToast("success", "Artist Created !");
 
       console.log("Form Data:", formData);
       console.log("response:", response);
     } catch (error) {
       console.error("Error submitting form:", error);
-      showToast("error", "An error occurred while submitting the form!");
+      showToast("error", "Submission failed!");
     } finally {
       setIsLoading(false);
     }
@@ -274,7 +266,7 @@ const ArtistModal = () => {
             disabled={isLoading}
             className="text-bgBase text-base bg-[#1ed760] mt-10 rounded-md hover:bg-[#1ed760] transform w-full font-semibold min-h-10 mx-auto"
           >
-            Submit
+            {isLoading ? "Loading..." : "Submit"}
           </Button>
         </form>
       </Form>

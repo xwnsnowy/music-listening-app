@@ -13,6 +13,16 @@ interface CreateArtist {
   linkedin?: string | null;
 }
 
+interface AllArtists {
+  name: string;
+  picture?: string | null;
+  description?: string | null;
+  followers?: number | null;
+  facebook?: string | null;
+  twitter?: string | null;
+  instagram?: string | null;
+  linkedin?: string | null;
+}
 
 export function createArtist(formData: FormData) {
   return axiosConfig.post(`/artist/create`, formData, {
@@ -21,6 +31,14 @@ export function createArtist(formData: FormData) {
       'API-Key': API_KEY
     },
   })
+    .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+}
+
+export function getAllArtists(data: AllArtists) {
+  return axiosConfig.post(`/artist/`, data)
     .then(response => response.data)
     .catch(error => {
       throw error;

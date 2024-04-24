@@ -25,7 +25,7 @@ interface AllArtists {
 }
 
 export function createArtist(formData: FormData) {
-  return axiosConfig.post(`/artist/create`, formData, {
+  return axiosConfig.post(`/artists/create`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
       'API-Key': API_KEY
@@ -37,8 +37,8 @@ export function createArtist(formData: FormData) {
     });
 }
 
-export function getAllArtists(data: AllArtists) {
-  return axiosConfig.post(`/artist/`, data)
+export function getAllArtists() {
+  return axiosConfig.get(`/artists`)
     .then(response => response.data)
     .catch(error => {
       throw error;

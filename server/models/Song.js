@@ -2,24 +2,24 @@ import mongoose from "mongoose";
 
 const songSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
     },
-    song_uri: {
+    picture: {
       type: String,
       required: true,
     },
-    image_uri: {
+    song: {
       type: String,
       required: true,
     },
-    artist: {
+    artistId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Artist",
       required: true,
     },
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,

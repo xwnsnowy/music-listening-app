@@ -36,6 +36,7 @@ const ArtistItem: React.FC<ArtistsItemProps> = ({ data, onClick }) => {
           className="object-cover"
           src={data.picture || "../../../../public/images/liked.png"}
           alt={data.name}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
         />
       </div>

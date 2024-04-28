@@ -21,6 +21,7 @@ export const createArtist = async (req, res, next) => {
         message: "No file uploaded",
       });
     }
+
     const picturePath = await cloudinary.uploader.upload(file.path);
 
     const newArtistData = {
@@ -39,6 +40,24 @@ export const createArtist = async (req, res, next) => {
 
     return res.status(500).json({
       message: "Create Artist failed",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllArtists = async (req, res, next) => {
+  try {
+    const data = await Artist.find({});
+    if (data) {
+      return res.status(201).json({
+        message: "Get All Artist successfully",
+        data,
+      });
+    }
+
+    return res.status(500).json({
+      message: "Get ALl Artist failed",
     });
   } catch (error) {
     next(error);

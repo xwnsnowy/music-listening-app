@@ -47,6 +47,6 @@ export const songSchema = z.object({
 
       return true;
     }, 'File(s) do not meet the requirements'),
-  userId: z.string().min(1),
-  artistId: z.string().min(1),
+  // userId: z.string().min(1),
+  // artistId: z.string().min(1),
 });

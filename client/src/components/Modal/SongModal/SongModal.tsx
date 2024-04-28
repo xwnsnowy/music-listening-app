@@ -22,17 +22,19 @@ import useSongModal from "@/hooks/useSongModal";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
 import { ModalAritstItem } from "./ModalArtistItem";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import { createSong } from "@/services/songServices";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
   name: string;
   picture?: FileList;
   song?: FileList;
-  userId: string;
-  artistId: string;
 }
 
 const SongModal = () => {
   const { artists, loading, error } = useFetchAllArtists();
+
+  const router = useRouter();
 
   const { user } = useAuthContext();
 
@@ -59,15 +61,12 @@ const SongModal = () => {
       name: "",
       picture: undefined,
       song: undefined,
-      userId: "",
-      artistId: "",
     },
   });
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
       setIsLoading(true);
-
       const formData = new FormData();
 
       formData.append("name", data.name);
@@ -80,15 +79,17 @@ const SongModal = () => {
       if (songFile) {
         formData.append("song", songFile);
       }
+
       formData.append("userId", user?._id || "");
       formData.append("artistId", selectedArtistId || "");
 
-      // const response = await createSong(formData);
-
+      const response = await createSong(formData);
+      console.log("response:", response);
+      setIsLoading(false);
       showToast("success", "Song Created !");
-
-      console.log("Form Data:", formData);
-      // console.log("response:", response);
+      // form.reset();
+      // onClose();
+      // router.refresh();
     } catch (error) {
       console.error("Error submitting form:", error);
       showToast("error", "Submission failed!");

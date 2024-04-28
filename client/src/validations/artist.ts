@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 3;
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 10;
 const ACCEPTED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/jpg'];
 
 const SOCIAL_MEDIA_URLS = {

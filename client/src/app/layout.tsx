@@ -45,10 +45,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${circular.variable}`}>
-      <ModalProvider />
-
       <StoreProvider>
         <AuthProvider>
+          <ModalProvider />
           <body className={inter.className}>
             <ToastProvider>{children}</ToastProvider>
           </body>

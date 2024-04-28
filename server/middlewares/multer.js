@@ -2,7 +2,13 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/uploads/artist-img");
+    if (file.fieldname === "picture") {
+      cb(null, "/uploads/images");
+    } else if (file.fieldname === "song") {
+      cb(null, "/uploads/songs");
+    } else {
+      cb(null, "/uploads");
+    }
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);

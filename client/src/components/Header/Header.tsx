@@ -8,18 +8,16 @@ import { twMerge } from "tailwind-merge";
 import Button from "../Button/Button";
 import Link from "next/link";
 import { useAuthContext } from "@/hooks/useAuthContext";
+import ListItem from "@/components/ListItem/ListItem";
 
 interface HeaderProps {
-  children: React.ReactNode;
   className?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ children, className }) => {
+const Header: React.FC<HeaderProps> = ({ className }) => {
   const router = useRouter();
 
   const { user, logout } = useAuthContext();
-
-  console.log(user);
 
   const handleLogout = () => {
     logout();
@@ -80,7 +78,16 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
           </div>
         )}
       </div>
-      {children}
+      {user && (
+        <div className="mb-2">
+          <h1 className="font-circular text-3xl font-semibold text-primaryColor">
+            Welcome Back !
+          </h1>
+        </div>
+      )}
+      <div className="mt-4 grid grid-cols-1 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <ListItem image="/images/liked.png" name="Liked Song" href="liked" />
+      </div>
     </div>
   );
 };

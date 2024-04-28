@@ -1,47 +1,93 @@
 "use client";
 
-import Header from "@/components/Header/Header";
-import ListItem from "@/components/ListItem/ListItem";
+import { useRouter } from "next/navigation";
+import { BsFillSearchHeartFill } from "react-icons/bs";
+import { HiHome } from "react-icons/hi";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { twMerge } from "tailwind-merge";
+import Button from "../Button/Button";
+import Link from "next/link";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import React from "react";
-import LeftSidebar from "@/components/Sidebar/Left/LeftSidebar";
-import RightSidebar from "@/components/Sidebar/Right/RightSidebar";
+import ListItem from "@/components/ListItem/ListItem";
 
 interface MainContentProps {
-  children: React.ReactNode;
+  className?: string;
 }
 
-const MainContent: React.FC<MainContentProps> = ({ children }) => {
-  const { user } = useAuthContext();
+const MainContent: React.FC<MainContentProps> = ({ className }) => {
+  const router = useRouter();
+
+  const { user, logout } = useAuthContext();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
 
   return (
-    <div className="flex bg-[#000]">
-      <LeftSidebar />
-      <main className="h-full flex-1 overflow-y-auto px-1 py-2">
-        <div className="h-full w-full overflow-hidden overflow-y-auto rounded-lg bg-bgBase">
-          <Header>
-            {user && (
-              <div className="mb-2">
-                <h1 className="font-circular text-3xl font-semibold text-primaryColor">
-                  Welcome Back !
-                </h1>
-              </div>
-            )}
-            <div className="mt-4 grid grid-cols-1 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-              <ListItem
-                image="/images/liked.png"
-                name="Liked Song"
-                href="liked"
-              />
-            </div>
-          </Header>
-          {/* <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">
-            <h1>Newest Songs</h1>
-          </div> */}
-          {children}
+    <div
+      className={twMerge(
+        `h-fit bg-gradient-to-b from-slate-700 p-6`,
+        className
+      )}
+    >
+      <div className="mb-4 flex w-full items-center justify-between">
+        <div className="hidden items-center gap-x-2 md:flex">
+          <button
+            onClick={() => router.back()}
+            title="Arrow Left"
+            className="flex items-center justify-center rounded-full bg-black transition hover:opacity-75"
+          >
+            <RxCaretLeft size={35} className="text-primaryColor" />
+          </button>
+          <button
+            onClick={() => router.forward()}
+            title="Arrow Left"
+            className="flex items-center justify-center rounded-full bg-black transition hover:opacity-75"
+          >
+            <RxCaretRight size={35} className="text-primaryColor" />
+          </button>
         </div>
-      </main>
-      <RightSidebar />
+        {/* Icon Home Mobile */}
+        <div className="flex items-center gap-x-2 md:hidden">
+          <button
+            title="Home Mobile"
+            className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75"
+          >
+            <HiHome size={20} className="text-black" />
+          </button>
+          <button
+            title="Search Mobile"
+            className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75"
+          >
+            <BsFillSearchHeartFill size={20} className="text-black" />
+          </button>
+        </div>
+        {user === null && (
+          <div className="flex items-center justify-between gap-x-4">
+            <Link href="/signup">
+              <Button className="transform bg-transparent px-4 text-primaryColor hover:scale-110">
+                Sign Up
+              </Button>
+            </Link>
+            <Link href="/login">
+              <Button className="transform px-10 py-3 hover:scale-110">
+                Log In
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
+      {user && (
+        <div className="mb-2">
+          <h1 className="font-circular text-3xl font-semibold text-primaryColor">
+            Welcome Back !
+          </h1>
+        </div>
+      )}
+      <div className="mt-4 grid grid-cols-1 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+        <ListItem image="/images/liked.png" name="Liked Song" href="liked" />
+      </div>
     </div>
   );
 };

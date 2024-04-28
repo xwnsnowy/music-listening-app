@@ -52,7 +52,7 @@ export default function LoginForm() {
         authContext.login(response.user);
         saveAccessToken(response.accessToken);
         console.log(response.user);
-        // router.push("/");
+        router.push("/");
       } else {
         console.error("Login failed:", response?.message);
       }

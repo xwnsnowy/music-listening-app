@@ -19,6 +19,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
   const { user, logout } = useAuthContext();
 
+  console.log(user);
+
   const handleLogout = () => {
     logout();
     router.push("/");

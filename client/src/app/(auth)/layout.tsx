@@ -1,22 +1,11 @@
-import { twMerge } from "tailwind-merge";
-// import "../globals.css";
-
-interface AuthLayoutProps {
+export default function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
-  className?: string;
-}
-
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children, className }) => {
+}>) {
   return (
-    <div
-      className={twMerge(
-        `w-full h-screen flex items-center justify-center bg-gradient-to-b from-bgElevatedBase to-black`,
-        className
-      )}
-    >
+    <div className="w-full h-screen flex items-center justify-center bg-gradient-to-b from-bgElevatedBase to-black">
       {children}
     </div>
   );
-};
-
-export default AuthLayout;
+}

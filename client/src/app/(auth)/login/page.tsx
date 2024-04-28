@@ -1,4 +1,3 @@
-import Button from "@/components/Button/Button";
 import LoginForm from "@/components/Login/LoginForm";
 import SocialMedia from "@/components/SocialMedia/SocialMedia";
 import Link from "next/link";
@@ -9,7 +8,7 @@ export const metadata = {
 
 const Login = () => {
   return (
-    <div className="max-w-[734px] w-full rounded-lg bg-bgBase flex flex-col items-center justify-center py-8  font-circular">
+    <div className="max-w-[734px] w-full rounded-lg bg-bgBase flex flex-col items-center justify-center  py-2 font-circular">
       {/* Title Login */}
       <h1 className="text-primaryColor text-5xl font-black py-10 cursor-default select-none">
         Log in to Spotify

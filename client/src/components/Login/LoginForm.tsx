@@ -20,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { PasswordInput } from "../ui/password-input";
 import { login } from "@/services/authServices";
 import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { saveAccessToken } from "@/utils/Helpers";
 
@@ -52,8 +51,8 @@ export default function LoginForm() {
       if (response?.accessToken) {
         authContext.login(response.user);
         saveAccessToken(response.accessToken);
-
-        router.push("/");
+        console.log(response.user);
+        // router.push("/");
       } else {
         console.error("Login failed:", response?.message);
       }

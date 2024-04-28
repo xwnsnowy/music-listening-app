@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-interface UseArtistModalProps {
+interface UseSongModalProps {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const useArtistModal = create<UseArtistModalProps>((set) => ({
+const useSongModal = create<UseSongModalProps>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
 
-export default useArtistModal;
+export default useSongModal;

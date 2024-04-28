@@ -2,6 +2,7 @@
 
 import ArtistModal from "@/components/Modal/ArtistModal/ArtistModal";
 import AuthModal from "@/components/Modal/AuthModal/AuthModal";
+import SongModal from "@/components/Modal/SongModal/SongModal";
 import { useEffect, useState } from "react";
 
 const ModalProvider = () => {
@@ -19,6 +20,7 @@ const ModalProvider = () => {
     <>
       <AuthModal />
       <ArtistModal />
+      <SongModal />
     </>
   );
 };

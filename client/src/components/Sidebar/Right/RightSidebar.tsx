@@ -12,12 +12,14 @@ import { useAuthContext } from "@/hooks/useAuthContext";
 import Image from "next/image";
 import { PiMusicNotesPlusBold } from "react-icons/pi";
 import useArtistModal from "@/hooks/useArtistModal";
+import useSongModal from "@/hooks/useSongModal";
 
 const RightSidebar = () => {
   const { user, logout } = useAuthContext();
 
   const authModal = useAuthModal();
   const artistModal = useArtistModal();
+  const songModal = useSongModal();
 
   const isSuperAdmin = user?.role === "super-admin";
 
@@ -84,14 +86,17 @@ const RightSidebar = () => {
         />
       </Button>
       {/* )} */}
-      {isSuperAdmin && (
-        <Button className="bg-transparent flex items-center justify-center rounded-sm py-2">
-          <PiMusicNotesPlusBold
-            className="text-2xl text-neutral-400 hover:scale-110 transition"
-            size={20}
-          />
-        </Button>
-      )}
+      {/* {isSuperAdmin && ( */}
+      <Button
+        className="bg-transparent flex items-center justify-center rounded-sm py-2"
+        onClick={songModal.onOpen}
+      >
+        <PiMusicNotesPlusBold
+          className="text-2xl text-neutral-400 hover:scale-110 transition"
+          size={20}
+        />
+      </Button>
+      {/* )} */}
 
       {/* Premium User  */}
 

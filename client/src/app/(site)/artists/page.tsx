@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getAllArtists } from "@/services/artistServices";
 import ArtistItem from "@/components/Artist/Item/ArtistItem";
+import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
 
 interface Artists {
   _id: string;
@@ -17,21 +18,7 @@ interface Artists {
 }
 
 const Artists = () => {
-  const [artists, setArtists] = useState<Artists[]>([]);
-
-  useEffect(() => {
-    const fetchArtists = async () => {
-      try {
-        const data = await getAllArtists();
-        console.log(data);
-        setArtists(data.data);
-      } catch (error) {
-        console.error("Error fetching artists:", error);
-      }
-    };
-
-    fetchArtists();
-  }, []);
+  const { artists, loading, error } = useFetchAllArtists();
 
   return (
     <div className="text-primaryColor">

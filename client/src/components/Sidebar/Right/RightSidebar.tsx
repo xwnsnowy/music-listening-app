@@ -33,7 +33,7 @@ const RightSidebar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center px-4 py-6 w-20 gap-6">
+    <div className="flex flex-col items-center px-2 py-6 w-20 gap-6">
       {/* User Profile */}
       {user ? (
         <div className="w-12 h-12 rounded-full bg-neutral-600  cursor-pointer flex items-center justify-center relative">

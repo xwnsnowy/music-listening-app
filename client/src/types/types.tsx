@@ -67,7 +67,10 @@ export interface Artists {
 }
 
 export interface Songs {
+  _id: string;
   name: string;
-  picture?: FileList;
-  song?: FileList;
+  picture?: string | null;
+  song?: string | null;
+  userId?: string | null;
+  artistId?: string | null;
 }

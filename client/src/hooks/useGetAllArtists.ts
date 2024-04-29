@@ -1,17 +1,9 @@
+"use client"
+
 import { useState, useEffect } from 'react';
 import { getAllArtists } from "@/services/artistServices";
+import { Artists } from '@/types/types';
 
-interface Artists {
-  _id: string;
-  name: string;
-  picture?: string | null;
-  description?: string | null;
-  followers?: number | null;
-  facebook?: string | null;
-  twitter?: string | null;
-  instagram?: string | null;
-  linkedin?: string | null;
-}
 
 export const useFetchAllArtists = () => {
   const [artists, setArtists] = useState<Artists[]>([]);

@@ -1,21 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getAllArtists } from "@/services/artistServices";
 import ArtistItem from "@/components/Artist/Item/ArtistItem";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
-
-interface Artists {
-  _id: string;
-  name: string;
-  picture?: string | null;
-  description?: string | null;
-  followers?: number | null;
-  facebook?: string | null;
-  twitter?: string | null;
-  instagram?: string | null;
-  linkedin?: string | null;
-}
 
 const Artists = () => {
   const { artists, loading, error } = useFetchAllArtists();

@@ -26,10 +26,7 @@ import { Button } from "@/components/ui/button";
 
 import { passwordSchema } from "@/validations/auth";
 import { ChangeEvent, useState } from "react";
-
-interface IFormInput {
-  password: string;
-}
+import { RegisterStepSecond } from "@/types/types";
 
 export default function RegisterFormStepSecond() {
   const router = useRouter();
@@ -57,7 +54,7 @@ export default function RegisterFormStepSecond() {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterStepSecond> = async (data) => {
     try {
       // Xử lý validation
       // await form.trigger();

@@ -37,33 +37,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { personalInfoSchema } from "@/validations/auth";
-
-interface IFormInput {
-  name: string;
-  dob: {
-    day: string;
-    month:
-      | "January"
-      | "February"
-      | "March"
-      | "April"
-      | "May"
-      | "June"
-      | "July"
-      | "August"
-      | "September"
-      | "October"
-      | "November"
-      | "December";
-    year: string;
-  };
-  gender:
-    | "male"
-    | "female"
-    | "non-binary"
-    | "something-else"
-    | "prefer-not-to-say";
-}
+import { RegisterStepThird } from "@/types/types";
 
 export default function RegisterFormStepThird() {
   const router = useRouter();
@@ -80,7 +54,7 @@ export default function RegisterFormStepThird() {
   });
 
   const { register } = form;
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterStepThird> = async (data) => {
     try {
       console.log("Submitting form with data:", data);
       dispatch(

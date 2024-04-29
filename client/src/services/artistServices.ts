@@ -13,17 +13,6 @@ interface CreateArtist {
   linkedin?: string | null;
 }
 
-interface AllArtists {
-  name: string;
-  picture?: string | null;
-  description?: string | null;
-  followers?: number | null;
-  facebook?: string | null;
-  twitter?: string | null;
-  instagram?: string | null;
-  linkedin?: string | null;
-}
-
 export function createArtist(formData: FormData) {
   return axiosConfig.post(`/artists/create`, formData, {
     headers: {

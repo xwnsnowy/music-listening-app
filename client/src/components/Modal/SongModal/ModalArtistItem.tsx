@@ -1,16 +1,5 @@
+import { Artists } from "@/types/types";
 import Image from "next/image";
-
-interface Artists {
-  _id: string;
-  name: string;
-  picture?: string | null;
-  description?: string | null;
-  followers?: number | null;
-  facebook?: string | null;
-  twitter?: string | null;
-  instagram?: string | null;
-  linkedin?: string | null;
-}
 
 interface ModalAritstItemProps {
   data: Artists;

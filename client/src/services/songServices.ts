@@ -10,13 +10,7 @@ interface CreateSong {
   artistId: string;
 }
 
-interface AllSongs {
-  name: string;
-  picture: FileList | null;
-  song: FileList | null;
-  userId: string;
-  artistId: string;
-}
+
 
 export function createSong(formData: FormData) {
   return axiosConfig.post(`/songs/create`, formData, {

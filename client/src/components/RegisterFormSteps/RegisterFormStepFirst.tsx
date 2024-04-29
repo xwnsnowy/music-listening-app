@@ -25,12 +25,8 @@ import { Input } from "@/components/ui/input";
 
 import { emailSchema } from "@/validations/auth";
 import { userExist } from "@/services/authServices";
-import { useEffect, useState } from "react";
-import { ShieldAlert } from "lucide-react";
-
-interface IFormInput {
-  email: string;
-}
+import { useState } from "react";
+import { RegisterStepFirst } from "@/types/types";
 
 export default function RegisterFormStepFirst() {
   const router = useRouter();
@@ -45,7 +41,7 @@ export default function RegisterFormStepFirst() {
 
   const [error, setError] = useState<string>("");
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterStepFirst> = async (data) => {
     try {
       const { exists, error } = await userExist(data);
       console.log(exists);

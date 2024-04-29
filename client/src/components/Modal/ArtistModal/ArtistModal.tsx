@@ -20,19 +20,12 @@ import { useState } from "react";
 import { createArtist } from "@/services/artistServices";
 import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "@/hooks/useToastProvider";
-
-interface IFormInput {
-  name: string;
-  picture?: FileList | null;
-  description?: string | null;
-  followers?: number | null;
-  facebook?: string | null;
-  twitter?: string | null;
-  instagram?: string | null;
-  linkedin?: string | null;
-}
+import { useRouter } from "next/navigation";
+import { Artist } from "@/types/types";
 
 const ArtistModal = () => {
+  const router = useRouter();
+
   const { showToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +51,7 @@ const ArtistModal = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<Artist> = async (data) => {
     try {
       setIsLoading(true);
 
@@ -79,11 +72,12 @@ const ArtistModal = () => {
       formData.append("linkedin", data.linkedin || "");
 
       const response = await createArtist(formData);
-
+      setIsLoading(false);
       showToast("success", "Artist Created !");
 
-      console.log("Form Data:", formData);
-      console.log("response:", response);
+      form.reset();
+      onClose();
+      router.refresh();
     } catch (error) {
       console.error("Error submitting form:", error);
       showToast("error", "Submission failed!");

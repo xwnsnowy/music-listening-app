@@ -28,11 +28,7 @@ import { termsAndConditionsSchema } from "@/validations/auth";
 import Link from "next/link";
 import { signup } from "@/services/authServices";
 import { useRouter } from "next/navigation";
-
-interface IFormInput {
-  receiveMarketingMessages?: boolean;
-  shareDataWithContentProviders?: boolean;
-}
+import { RegisterStepFourth } from "@/types/types";
 
 export default function RegisterFormStepFourth() {
   const router = useRouter();
@@ -58,7 +54,7 @@ export default function RegisterFormStepFourth() {
 
   console.log(userData);
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<RegisterStepFourth> = async (data) => {
     try {
       await signup(userData);
       console.log("Registration successful");

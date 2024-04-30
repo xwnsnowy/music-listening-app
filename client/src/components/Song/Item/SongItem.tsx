@@ -1,6 +1,6 @@
 "use client";
 
-import PlayButton from "@/components/PlayButton/PlayButton";
+import PlayButton from "@/components/Button/PlayButton";
 import { Artists, Songs } from "@/types/types";
 import Image from "next/image";
 import React from "react";

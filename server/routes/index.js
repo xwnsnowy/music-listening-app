@@ -6,6 +6,7 @@ import categoryRouter from "./category.js";
 import artistRouter from "./artist.js";
 import songRouter from "./song.js";
 import searchRouter from "./search.js";
+import favoriteRouter from "./favorite.js";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/auth", authRouter);
 router.use("/artists", artistRouter);
 router.use("/songs", songRouter);
 router.use("/search", searchRouter);
+router.use("/favorite", favoriteRouter);
 
 export default router;

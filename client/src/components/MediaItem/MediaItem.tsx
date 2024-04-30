@@ -1,3 +1,4 @@
+import LikeButton from "@/components/Button/LikeButton";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { Artists, Songs } from "@/types/types";
 import Image from "next/image";
@@ -66,6 +67,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
           </div>
         )}
       </div>
+
+      {user && <LikeButton songId={data._id} />}
     </div>
   );
 };

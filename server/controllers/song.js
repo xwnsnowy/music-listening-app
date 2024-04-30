@@ -89,8 +89,9 @@ export const getSongByName = async (req, res, next) => {
         data: songs,
       });
     } else {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "No songs found with the given name",
+        data: songs,
       });
     }
   } catch (error) {

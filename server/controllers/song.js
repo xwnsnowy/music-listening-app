@@ -68,3 +68,32 @@ export const getAllSongs = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSongByName = async (req, res, next) => {
+  try {
+    const { name } = req.query;
+
+    if (!name || name.trim() === "") {
+      const allSongs = await Song.find();
+      return res.status(200).json({
+        message: "All songs retrieved successfully",
+        data: allSongs,
+      });
+    }
+
+    const songs = await Song.find({ name: { $regex: new RegExp(name, "i") } });
+
+    if (songs.length > 0) {
+      return res.status(200).json({
+        message: "Songs found successfully",
+        data: songs,
+      });
+    } else {
+      return res.status(404).json({
+        message: "No songs found with the given name",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};

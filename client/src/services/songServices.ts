@@ -10,8 +10,6 @@ interface CreateSong {
   artistId: string;
 }
 
-
-
 export function createSong(formData: FormData) {
   return axiosConfig.post(`/songs/create`, formData, {
     headers: {
@@ -28,6 +26,17 @@ export function createSong(formData: FormData) {
 export function getAllSongs() {
   return axiosConfig.get(`/songs`)
     .then(response => response.data)
+    .catch(error => {
+      throw error;
+    });
+}
+
+export function getSongByName(searchParams: string) {
+  return axiosConfig.get('/search', {
+    params: {
+      name: searchParams
+    }
+  }).then(response => response.data)
     .catch(error => {
       throw error;
     });

@@ -1,49 +1,56 @@
-"use client";
-
-import PlayButton from "@/components/PlayButton/PlayButton";
+import { useAuthContext } from "@/hooks/useAuthContext";
 import { Artists, Songs } from "@/types/types";
 import Image from "next/image";
-import React from "react";
+import { twMerge } from "tailwind-merge";
 
-interface SongsItemProps {
+interface MediaItemProps {
   data: Songs;
   artist: Artists;
+  className?: string;
   onClick: (id: string) => void;
 }
 
-const SongItem: React.FC<SongsItemProps> = ({ data, artist, onClick }) => {
-  const handleClick = (id: string) => {
-    console.log(id);
-    onClick(data._id);
+const MediaItem: React.FC<MediaItemProps> = ({
+  data,
+  artist,
+  className,
+  onClick,
+}) => {
+  const { user } = useAuthContext();
+
+  const handleClick = () => {
+    if (onClick) {
+      return onClick(data._id);
+    }
   };
 
   return (
     <div
-      onClick={() => handleClick(data._id)}
-      className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-1 cursor-pointer hover:bg-[#1a1a1a] transition p-2 "
+      onClick={handleClick}
+      className={twMerge(
+        "flex w-full items-center justify-start px-4 py-2 rounded-md bg-neutral-400/10 drop-shadow-md gap-4 cursor-pointer opacity-70 hover:opacity-100 font-circular",
+        className
+      )}
     >
-      <div className="relative flex flex-col aspect-square w-full h-full rounded-md overflow-hidden">
+      <div className="aspect-square w-24 h-16 rounded-md overflow-hidden relative">
         <Image
           fill
-          className="object-cover"
+          className="object-cover w-full h-full"
           src={data.picture || "../../../../public/images/liked.png"}
           alt={data.name}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
         />
-        <div className="absolute bottom-5 right-2">
-          <PlayButton />
-        </div>
       </div>
 
-      <div className="flex flex-col items-start w-full gap-1">
-        <span className="truncate text-lg w-full font-semibold text-primaryColor">
-          {data?.name}
+      <div className="flex flex-col items-start justify-start gap-y-1">
+        <span className="w-full md:w-44 truncate font-semibold">
+          {data.name}
         </span>
 
         {artist && (
           <div className="w-full flex items-center justify-start gap-2">
-            <div className="w-5 min-w-5 h-5 flex items-center justify-center bg-neutral-400 rounded-md relative overflow-hidden">
+            <div className="w-6 min-w-6 h-6 flex items-center justify-center bg-neutral-400 rounded-md relative overflow-hidden">
               <Image
                 fill
                 className="object-cover"
@@ -63,4 +70,4 @@ const SongItem: React.FC<SongsItemProps> = ({ data, artist, onClick }) => {
   );
 };
 
-export default SongItem;
+export default MediaItem;

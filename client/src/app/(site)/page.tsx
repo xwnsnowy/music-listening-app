@@ -7,6 +7,7 @@ import { useFetchAllSongs } from "@/hooks/useGetAllSongs";
 export default function Home() {
   const { artists } = useFetchAllArtists();
   const { songs } = useFetchAllSongs();
+  
   return (
     <div className="w-full flex-1 text-primaryColor">
       <MainContent songs={songs} artists={artists} />

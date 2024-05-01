@@ -12,10 +12,10 @@ interface MainContentProps {
 const MainContent: React.FC<MainContentProps> = ({ songs, artists }) => {
   return (
     <div className="text-primaryColor">
-      <div className="mt-4 grid grid-cols-1 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid grid-cols-1 px-6 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         <ListItem image="/images/liked.png" name="Liked Song" href="liked" />
       </div>
-      <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">
+      <div className="my-4 px-6 font-circular text-2xl font-semibold text-primaryColor">
         <h1 className="hover:underline">Popular Radio</h1>
       </div>
       {artists.length === 0 ? (

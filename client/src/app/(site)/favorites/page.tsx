@@ -8,8 +8,11 @@ import { useFetchAllFavorite } from "@/hooks/useGetAllFavorite";
 import { FaHeart } from "react-icons/fa";
 import { getSongById } from "@/services/songServices";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
+import useAuthModal from "@/hooks/useAuthModal";
+import { useRouter } from "next/navigation";
 
 const Favorities = () => {
+  const router = useRouter();
   const { user } = useAuthContext();
   const userId = user?._id || "";
 
@@ -17,6 +20,15 @@ const Favorities = () => {
   const { artists } = useFetchAllArtists();
 
   const [favoriteSongs, setFavoriteSongs] = useState<Songs[]>([]);
+
+  const authModal = useAuthModal();
+
+  useEffect(() => {
+    if (!user) {
+      authModal.onOpen();
+      router.replace("/");
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user) {

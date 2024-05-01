@@ -1,14 +1,15 @@
-"use client";
-
 import MediaItem from "@/components/MediaItem/MediaItem";
 import { Artists, Songs } from "@/types/types";
 
-interface SearchContentProps {
+interface FavoriteContentProps {
   songs: Songs[];
   artists: Artists[];
 }
 
-const SearchContent: React.FC<SearchContentProps> = ({ songs, artists }) => {
+const FavoriteContent: React.FC<FavoriteContentProps> = ({
+  songs,
+  artists,
+}) => {
   return (
     <div className="text-primaryColor">
       {songs.length === 0 ? (
@@ -36,4 +37,4 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs, artists }) => {
   );
 };
 
-export default SearchContent;
+export default FavoriteContent;

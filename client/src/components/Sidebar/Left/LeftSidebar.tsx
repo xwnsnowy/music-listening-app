@@ -2,12 +2,11 @@
 
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-
 import { BiSearch } from "react-icons/bi";
 import { GoHome } from "react-icons/go";
 import { BsFillSearchHeartFill } from "react-icons/bs";
-
-import { twMerge } from "tailwind-merge";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { FaHeartbeat } from "react-icons/fa";
 
 import Box from "../../Box/Box";
 import SiderbarItem from "../Item/SiderbarItem";
@@ -30,6 +29,12 @@ const LeftSidebar = () => {
         label: "Search",
         href: "/search",
         active: pathname === "/search",
+      },
+      {
+        icon: pathname === "/favorites" ? FaHeartbeat : IoMdHeartEmpty,
+        label: "Favorites",
+        href: "/favorites",
+        active: pathname === "/favorites",
       },
     ],
     [pathname]

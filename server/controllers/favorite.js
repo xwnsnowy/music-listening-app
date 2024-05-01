@@ -1,5 +1,27 @@
 import Favorite from "../models/Favorite.js";
 
+export const getAllFavorite = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const data = await Favorite.find({ userId });
+
+    if (data && data.length > 0) {
+      return res.status(200).json({
+        message: "Get All Favorite Songs Successfully",
+        data,
+      });
+    }
+
+    return res.status(202).json({
+      message: "No Favorite Songs Found for this User",
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const checkIfFavorite = async (req, res, next) => {
   try {
     const { userId, songId } = req.body;

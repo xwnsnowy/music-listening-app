@@ -2,10 +2,13 @@ import { Router } from "express";
 import {
   addToFavorite,
   checkIfFavorite,
+  getAllFavorite,
   removeFromFavorite,
 } from "../controllers/favorite.js";
 
 const favoriteRouter = Router();
+
+favoriteRouter.get("/:userId", getAllFavorite);
 
 favoriteRouter.post("/check", checkIfFavorite);
 

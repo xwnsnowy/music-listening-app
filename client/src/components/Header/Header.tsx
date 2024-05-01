@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge";
 import Button from "../Button/Button";
 import Link from "next/link";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import ListItem from "@/components/ListItem/ListItem";
 
 interface HeaderProps {
   className?: string;
@@ -85,9 +84,6 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           </h1>
         </div>
       )}
-      <div className="mt-4 grid grid-cols-1 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-        <ListItem image="/images/liked.png" name="Liked Song" href="liked" />
-      </div>
     </div>
   );
 };

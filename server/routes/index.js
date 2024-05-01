@@ -17,6 +17,6 @@ router.use("/auth", authRouter);
 router.use("/artists", artistRouter);
 router.use("/songs", songRouter);
 router.use("/search", searchRouter);
-router.use("/favorite", favoriteRouter);
+router.use("/favorites", favoriteRouter);
 
 export default router;

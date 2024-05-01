@@ -98,3 +98,25 @@ export const getSongByName = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSongById = async (req, res, next) => {
+  try {
+    const { songId } = req.params;
+
+    const song = await Song.findById(songId);
+
+    if (song) {
+      return res.status(200).json({
+        message: "Get Song by Id Successfully",
+        song,
+      });
+    }
+
+    return res.status(404).json({
+      message: "Song not found",
+      song,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

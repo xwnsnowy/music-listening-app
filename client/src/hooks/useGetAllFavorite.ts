@@ -22,7 +22,9 @@ export const useFetchAllFavorite = (userId: string) => {
       }
     };
 
-    fetchFavorites();
+    if (userId) {
+      fetchFavorites();
+    }
   }, []);
 
   return { favorites, loading, error };

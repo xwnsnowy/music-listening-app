@@ -1,4 +1,5 @@
 import MediaItem from "@/components/MediaItem/MediaItem";
+import useOnPlay from "@/hooks/useOnPlay";
 import { Artists, Songs } from "@/types/types";
 
 interface FavoriteContentProps {
@@ -10,6 +11,8 @@ const FavoriteContent: React.FC<FavoriteContentProps> = ({
   songs,
   artists,
 }) => {
+  const onPlay = useOnPlay(songs);
+
   return (
     <div className="text-primaryColor">
       {songs.length === 0 ? (
@@ -25,7 +28,7 @@ const FavoriteContent: React.FC<FavoriteContentProps> = ({
             return artist ? (
               <MediaItem
                 key={song._id}
-                onClick={() => {}}
+                onClick={(id: string) => onPlay(id)}
                 data={song}
                 artist={artist}
               />

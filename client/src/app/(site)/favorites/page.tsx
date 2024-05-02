@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Songs } from "@/types/types";
+import { useEffect } from "react";
 import FavoriteContent from "@/components/Favorite/FavoriteContent";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { useFetchAllFavorite } from "@/hooks/useGetAllFavorite";
 import { FaHeart } from "react-icons/fa";
-import { getSongById } from "@/services/songServices";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
 import useAuthModal from "@/hooks/useAuthModal";
 import { useRouter } from "next/navigation";
@@ -19,9 +17,9 @@ const Favorities = () => {
   const { favorites } = useFetchAllFavorite(userId);
   const { artists } = useFetchAllArtists();
 
-  const [favoriteSongs, setFavoriteSongs] = useState<Songs[]>([]);
-
   const authModal = useAuthModal();
+  
+  const songs = favorites.map((favorite) => favorite.song!).filter(Boolean);
 
   useEffect(() => {
     if (!user) {
@@ -29,29 +27,6 @@ const Favorities = () => {
       router.replace("/");
     }
   }, [user]);
-
-  useEffect(() => {
-    if (user) {
-      const fetchFavoriteSongs = async () => {
-        try {
-          const songPromises = favorites.map(async (favorite) => {
-            const songId = favorite.songId!;
-            const song = await getSongById(songId);
-            return song.data;
-          });
-
-          const fetchedSongs = await Promise.all(songPromises);
-          const flatFetchedSongs = fetchedSongs.flat();
-
-          setFavoriteSongs(flatFetchedSongs);
-        } catch (error) {
-          console.error("Error fetching favorite songs:", error);
-        }
-      };
-
-      fetchFavoriteSongs();
-    }
-  }, [favorites]);
 
   return (
     <div className="h-full w-full overflow-hidden overflow-y-auto px-6 py-2 font-circular">
@@ -71,7 +46,7 @@ const Favorities = () => {
       </div>
 
       <div className="w-full flex-1">
-        <FavoriteContent songs={favoriteSongs} artists={artists} />
+        <FavoriteContent songs={songs} artists={artists} />
       </div>
     </div>
   );

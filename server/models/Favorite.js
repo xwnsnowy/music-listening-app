@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const favoriteSchema = new mongoose.Schema(
   {
-    songId: {
+    song: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Song",
       required: true,

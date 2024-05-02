@@ -1,8 +1,9 @@
+import { Songs } from '@/types/types';
 import axiosConfig from './axiosConfig';
 
 interface FavoriteData {
   userId?: string;
-  songId?: string;
+  song?: Songs;
 }
 
 export function getAllFavorite(userId: string) {
@@ -29,8 +30,8 @@ export function addToFavorite(data: FavoriteData) {
     });
 }
 
-export function removeFromFavorite(userId: string, songId: string) {
-  return axiosConfig.delete(`/favorites/remove/${userId}/${songId}`)
+export function removeFromFavorite(userId: string, song: Songs) {
+  return axiosConfig.delete(`/favorites/remove/${userId}/${song}`)
     .then(response => response.data)
     .catch(error => {
       throw error;

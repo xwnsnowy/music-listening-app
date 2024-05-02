@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation";
 import SocialMedia from "@/components/SocialMedia/SocialMedia";
 import LoginForm from "@/components/Login/LoginForm";
 import Link from "next/link";
+import { useAuthContext } from "@/hooks/useAuthContext";
 
 const AuthModal = () => {
   const router = useRouter();
   const { onClose, isOpen } = useAuthModal();
+  const { user } = useAuthContext();
 
   const onChange = () => {
     console.log("Close");
@@ -19,11 +21,11 @@ const AuthModal = () => {
   };
 
   useEffect(() => {
-    if (isAccessTokenValid()) {
+    if (user) {
       router.refresh();
       onClose();
     }
-  }, [isAccessTokenValid, router, onClose]);
+  }, [user]);
 
   return (
     <Modal isOpen={isOpen} onChange={onChange}>

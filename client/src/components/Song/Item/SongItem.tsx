@@ -12,26 +12,30 @@ interface SongsItemProps {
 }
 
 const SongItem: React.FC<SongsItemProps> = ({ data, artist, onClick }) => {
-  const handleClick = (id: string) => {
-    console.log(id);
-    onClick(data._id);
+  const handleClick = () => {
+    if (onClick) {
+      return onClick(data._id);
+    }
   };
 
   return (
     <div
-      onClick={() => handleClick(data._id)}
+      onClick={handleClick}
       className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-1 cursor-pointer hover:bg-[#1a1a1a] transition p-2 "
     >
       <div className="relative flex flex-col aspect-square w-full h-full rounded-md overflow-hidden">
         <Image
           fill
           className="object-cover"
-          src={data.picture || "../../../../public/images/liked.png"}
+          src={data.picture || "/images/liked.png"}
           alt={data.name}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading="lazy"
         />
-        <div className="absolute bottom-5 right-2">
+        <div
+          className="absolute bottom-5 right-2"
+          onClick={() => onClick(data._id)}
+        >
           <PlayButton />
         </div>
       </div>

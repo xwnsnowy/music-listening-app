@@ -43,11 +43,8 @@ export function getSongByName(searchParams: string) {
 }
 
 export function getSongById(songId: string) {
-  return axiosConfig.get('/songs', {
-    params: {
-      songId: songId
-    }
-  }).then(response => response.data)
+  return axiosConfig.get(`/songs/${songId}`)
+    .then(response => response.data)
     .catch(error => {
       throw error;
     });

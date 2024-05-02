@@ -1,6 +1,7 @@
 "use client";
 
 import MediaItem from "@/components/MediaItem/MediaItem";
+import useOnPlay from "@/hooks/useOnPlay";
 import { Artists, Songs } from "@/types/types";
 
 interface SearchContentProps {
@@ -9,6 +10,8 @@ interface SearchContentProps {
 }
 
 const SearchContent: React.FC<SearchContentProps> = ({ songs, artists }) => {
+  const onPlay = useOnPlay(songs);
+
   return (
     <div className="text-primaryColor">
       {songs.length === 0 ? (
@@ -24,7 +27,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs, artists }) => {
             return artist ? (
               <MediaItem
                 key={song._id}
-                onClick={() => {}}
+                onClick={(id: string) => onPlay(id)}
                 data={song}
                 artist={artist}
               />

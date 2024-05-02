@@ -2,10 +2,12 @@
 
 import ArtistItem from "@/components/Artist/Item/ArtistItem";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
+import { useFetchSongById } from "@/hooks/useGetSongById";
 
 const Artists = () => {
   const { artists, loading, error } = useFetchAllArtists();
-
+  const { song } = useFetchSongById("66321d1794e276bd0ec3fa63");
+  console.log(song);
   return (
     <div className="text-primaryColor">
       <div className="mb-7 mt-2 px-6 font-circular text-2xl font-semibold text-primaryColor">

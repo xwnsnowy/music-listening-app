@@ -17,15 +17,9 @@ export const createSong = async (req, res, next) => {
     const pictureFile = req.files["picture"][0];
     const songFile = req.files["song"][0];
 
-    if (!pictureFile || !songFile) {
-      return res.status(400).json({
-        message: "Both picture and song files are required",
-      });
-    }
-
     const picturePath = await cloudinary.uploader.upload(pictureFile.path);
     const songPath = await cloudinary.uploader.upload(songFile.path, {
-      resource_type: "auto",
+      resource_type: "raw",
     });
 
     const newSongData = {

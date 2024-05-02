@@ -78,5 +78,5 @@ export interface Songs {
 export interface Favorites {
   _id: string;
   userId?: string | null;
-  songId?: string | null;
+  song?: Songs;
 }

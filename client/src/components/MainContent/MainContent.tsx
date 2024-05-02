@@ -2,6 +2,7 @@
 
 import ListItem from "@/components/ListItem/ListItem";
 import SongItem from "@/components/Song/Item/SongItem";
+import useOnPlay from "@/hooks/useOnPlay";
 import { Artists, Songs } from "@/types/types";
 
 interface MainContentProps {
@@ -10,6 +11,8 @@ interface MainContentProps {
 }
 
 const MainContent: React.FC<MainContentProps> = ({ songs, artists }) => {
+  const onPlay = useOnPlay(songs);
+
   return (
     <div className="text-primaryColor">
       <div className="grid grid-cols-1 px-6 gap-3 text-primaryColor sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -31,7 +34,7 @@ const MainContent: React.FC<MainContentProps> = ({ songs, artists }) => {
             return artist ? (
               <SongItem
                 key={song._id}
-                onClick={() => {}}
+                onClick={(id: string) => onPlay(id)}
                 data={song}
                 artist={artist}
               />

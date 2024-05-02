@@ -4,7 +4,6 @@ import SearchContent from "@/components/SearchContent/SearchContent";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
 import { useFetchSongByName } from "@/hooks/useGetSongByName";
-import { useEffect, useState } from "react";
 
 interface SearchProps {
   searchParams: {

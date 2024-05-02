@@ -4,7 +4,7 @@ export const getAllFavorite = async (req, res, next) => {
   try {
     const { userId } = req.params;
 
-    const data = await Favorite.find({ userId });
+    const data = await Favorite.find({ userId }).populate("song");
 
     if (data && data.length > 0) {
       return res.status(200).json({
@@ -24,11 +24,11 @@ export const getAllFavorite = async (req, res, next) => {
 
 export const checkIfFavorite = async (req, res, next) => {
   try {
-    const { userId, songId } = req.body;
+    const { userId, song } = req.body;
 
     const existingFavorite = await Favorite.findOne({
       userId: userId,
-      songId: songId,
+      song: song,
     });
 
     if (existingFavorite) {
@@ -49,11 +49,11 @@ export const checkIfFavorite = async (req, res, next) => {
 
 export const addToFavorite = async (req, res, next) => {
   try {
-    const { userId, songId } = req.body;
+    const { userId, song } = req.body;
 
     const newFavorite = await Favorite.create({
       userId: userId,
-      songId: songId,
+      song: song,
     });
 
     return res.status(201).json({
@@ -67,11 +67,11 @@ export const addToFavorite = async (req, res, next) => {
 
 export const removeFromFavorite = async (req, res, next) => {
   try {
-    const { userId, songId } = req.params;
+    const { userId, song } = req.body;
 
     const deletedFavorite = await Favorite.findOneAndDelete({
       userId: userId,
-      songId: songId,
+      song: song,
     });
 
     if (deletedFavorite) {

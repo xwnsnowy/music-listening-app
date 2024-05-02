@@ -4,17 +4,16 @@ import {
   addToFavorite,
   removeFromFavorite,
 } from "@/services/favoriteServices";
-import { useRouter } from "next/navigation";
+import { Songs } from "@/types/types";
 import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoHeartOutline } from "react-icons/io5";
 
 interface LikeButtonProps {
-  songId: string;
+  song: Songs;
 }
 
-const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
-  const router = useRouter();
+const LikeButton: React.FC<LikeButtonProps> = ({ song }) => {
   const [isLiked, setIsLiked] = useState(false);
   const { user } = useAuthContext();
 
@@ -23,7 +22,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
       try {
         const { isFavorite } = await checkIsFavorite({
           userId: user?._id,
-          songId: songId,
+          song: song,
         });
         setIsLiked(isFavorite);
       } catch (error) {
@@ -32,14 +31,19 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
     };
 
     fetchIsFavorite();
-  }, [songId]);
+  }, [song]);
 
-  const handleClick = async () => {
+  const handleClick = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    console.log("Abc");
+    event.stopPropagation();
     try {
       if (isLiked) {
-        await removeFromFavorite(user?._id!, songId);
+        await removeFromFavorite(user?._id!, song);
+        console.log("Like");
       } else {
-        await addToFavorite({ userId: user?._id!, songId: songId });
+        await addToFavorite({ userId: user?._id!, song: song });
       }
       setIsLiked(!isLiked);
     } catch (error) {

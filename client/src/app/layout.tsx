@@ -31,6 +31,7 @@ import { Figtree } from "next/font/google";
 import ModalProvider from "@/providers/ModalProvider";
 import { AuthProvider } from "@/providers/AuthProvider";
 import ToastProvider from "@/providers/ToastProvider";
+import Player from "@/components/Player/Player";
 const inter = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function RootLayout({
           <ModalProvider />
           <body className={inter.className}>
             <ToastProvider>{children}</ToastProvider>
+            <Player />
           </body>
         </AuthProvider>
       </StoreProvider>

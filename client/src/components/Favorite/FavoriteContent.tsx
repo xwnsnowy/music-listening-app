@@ -16,8 +16,8 @@ const FavoriteContent: React.FC<FavoriteContentProps> = ({
   return (
     <div className="text-primaryColor">
       {songs.length === 0 ? (
-        <h3 className="text-2xl font-semibold text-center mt-10 text-red-600">
-          No songs found
+        <h3 className="text-2xl font-semibold text-center mt-10 text-emerald-500">
+          Your favorite songs list is empty
         </h3>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 mt-4 gap-4">

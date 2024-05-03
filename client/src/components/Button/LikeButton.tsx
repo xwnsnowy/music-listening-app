@@ -33,22 +33,17 @@ const LikeButton: React.FC<LikeButtonProps> = ({ song }) => {
     fetchIsFavorite();
   }, [song]);
 
-  const handleClick = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    console.log("Abc");
-    event.stopPropagation();
-    try {
-      if (isLiked) {
-        await removeFromFavorite(user?._id!, song);
-        console.log("Like");
-      } else {
-        await addToFavorite({ userId: user?._id!, song: song });
-      }
-      setIsLiked(!isLiked);
-    } catch (error) {
-      console.error("Error toggling like status:", error);
+  console.log(isLiked);
+
+  const handleClick = async () => {
+    if (isLiked) {
+      await removeFromFavorite(user?._id!, song._id);
+      console.log("UnLike");
+    } else {
+      console.log("like");
+      await addToFavorite({ userId: user?._id!, song: song });
     }
+    setIsLiked((prevIsLiked) => !prevIsLiked);
   };
 
   const Icon = isLiked ? FaHeart : IoHeartOutline;
@@ -57,7 +52,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ song }) => {
     <button
       title="Like Button"
       onClick={handleClick}
-      className="cursor-pointer ml-auto hover:opacity-75 transition"
+      className="cursor-pointer z-50 ml-auto hover:opacity-75 transition"
     >
       <Icon
         className={`text-lg ${

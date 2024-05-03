@@ -67,11 +67,11 @@ export const addToFavorite = async (req, res, next) => {
 
 export const removeFromFavorite = async (req, res, next) => {
   try {
-    const { userId, song } = req.body;
+    const { userId, songId } = req.params;
 
     const deletedFavorite = await Favorite.findOneAndDelete({
       userId: userId,
-      song: song,
+      song: songId,
     });
 
     if (deletedFavorite) {

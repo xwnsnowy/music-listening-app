@@ -15,7 +15,7 @@ const SearchContent: React.FC<SearchContentProps> = ({ songs, artists }) => {
   return (
     <div className="text-primaryColor">
       {songs.length === 0 ? (
-        <h3 className="text-2xl font-semibold text-center mt-10 text-red-600">
+        <h3 className="text-2xl font-semibold text-center mt-10 text-emerald-500">
           No songs found
         </h3>
       ) : (

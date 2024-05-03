@@ -30,11 +30,12 @@ export function addToFavorite(data: FavoriteData) {
     });
 }
 
-export function removeFromFavorite(userId: string, song: Songs) {
-  return axiosConfig.delete(`/favorites/remove/${userId}/${song}`)
+export function removeFromFavorite(userId: string, songId: string) {
+  return axiosConfig.delete(`/favorites/remove/${userId}/${songId}`)
     .then(response => response.data)
     .catch(error => {
       throw error;
     });
 }
+
 

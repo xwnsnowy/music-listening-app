@@ -18,7 +18,7 @@ const Favorities = () => {
   const { artists } = useFetchAllArtists();
 
   const authModal = useAuthModal();
-  
+
   const songs = favorites.map((favorite) => favorite.song!).filter(Boolean);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Favorities = () => {
 
   return (
     <div className="h-full w-full overflow-hidden overflow-y-auto px-6 py-2 font-circular">
-      <div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-10">
+      <div className="flex flex-col md:flex-row items-center justify-start gap-4 mt-4">
         <div className="w-24 h-24 rounded-md lg:w-32 lg:h-32 flex items-center justify-center bg-gradient-to-br from-blue-600 via-purple-700 to-gray-500 trasition">
           <FaHeart className="text-3xl text-white" />
         </div>

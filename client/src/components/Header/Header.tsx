@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       {user && (
         <div className="mb-2">
           <h1 className="font-circular text-3xl font-semibold text-primaryColor">
-            Welcome Back !
+            Welcome <span className="text-orange-400">{user.name} !</span>
           </h1>
         </div>
       )}

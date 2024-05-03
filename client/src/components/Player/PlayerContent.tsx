@@ -62,11 +62,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     player.setId(nextSong);
   };
 
-  const handleVolumeChange = (newValue: number) => {
-    const newVolume = newValue / 100; // Chuyển đổi giá trị từ phần trăm (0-100) thành dải âm lượng (0-1)
-    setVolume(newVolume); // Cập nhật giá trị âm lượng mới
-  };
-
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
   };
@@ -77,6 +72,11 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
 
   const handleProgress = (state: { played: number }) => {
     // Here you can handle the progress of the song if needed
+  };
+
+  const handleVolumeChange = (newVolume: number[]) => {
+    const volumeValue = newVolume[0];
+    setVolume(volumeValue / 100);
   };
 
   return (
@@ -129,12 +129,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
             className="text-secondaryColor cursor-pointer hover:text-primaryColor transition"
           />
           <Slider
-            defaultValue={[1]}
-            value={[volume]}
-            max={1}
-            step={0.1}
-            onChange={() => handleVolumeChange}
-            aria-label="Volume"
+            defaultValue={[volume * 100]}
+            onValueChange={handleVolumeChange}
+            max={100}
+            step={1}
           />
         </div>
       </div>

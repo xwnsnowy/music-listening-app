@@ -30,7 +30,7 @@ const ArtistItem: React.FC<ArtistsItemProps> = ({ data, onClick }) => {
       onClick={() => handleClick(data._id)}
       className="relative group flex flex-col items-center justify-center rounded-md overflow-hidden gap-4  cursor-pointer hover:bg-[#1a1a1a] transition p-2"
     >
-      <div className="relative flex flex-col aspect-square w-full h-full rounded-md overflow-hidden ">
+      <div className="relative flex flex-col aspect-square w-full h-full rounded-full overflow-hidden ">
         <Image
           fill
           className="object-cover"

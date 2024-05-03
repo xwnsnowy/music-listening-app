@@ -75,28 +75,29 @@ const RightSidebar = () => {
       </Link>
 
       {/* Loading these option only if its matches the super admin id */}
-      {/* {isSuperAdmin && ( */}
-      <Button
-        className="bg-transparent flex items-center justify-center rounded-sm py-2"
-        onClick={artistModal.onOpen}
-      >
-        <UserPlus
-          className="text-2xl text-neutral-400 hover:scale-110 transition"
-          size={20}
-        />
-      </Button>
-      {/* )} */}
-      {/* {isSuperAdmin && ( */}
-      <Button
-        className="bg-transparent flex items-center justify-center rounded-sm py-2"
-        onClick={songModal.onOpen}
-      >
-        <PiMusicNotesPlusBold
-          className="text-2xl text-neutral-400 hover:scale-110 transition"
-          size={20}
-        />
-      </Button>
-      {/* )} */}
+      {isSuperAdmin && (
+        <Button
+          className="bg-transparent flex items-center justify-center rounded-sm py-2"
+          onClick={artistModal.onOpen}
+        >
+          <UserPlus
+            className="text-2xl text-neutral-400 hover:scale-110 transition"
+            size={20}
+          />
+        </Button>
+      )}
+      
+      {isSuperAdmin && (
+        <Button
+          className="bg-transparent flex items-center justify-center rounded-sm py-2"
+          onClick={songModal.onOpen}
+        >
+          <PiMusicNotesPlusBold
+            className="text-2xl text-neutral-400 hover:scale-110 transition"
+            size={20}
+          />
+        </Button>
+      )}
 
       {/* Premium User  */}
 

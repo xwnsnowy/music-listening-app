@@ -22,6 +22,8 @@ import { login } from "@/services/authServices";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { saveAccessToken } from "@/utils/Helpers";
+import { useToast } from "@/hooks/useToastProvider";
+import { useState } from "react";
 
 interface IFormInput {
   email: string;
@@ -30,6 +32,8 @@ interface IFormInput {
 
 export default function LoginForm() {
   const router = useRouter();
+  const { showToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const authContext = useAuthContext();
 
@@ -43,6 +47,8 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     try {
+      setIsLoading(true);
+
       const response = await login({
         email: data.email,
         password: data.password,
@@ -53,11 +59,13 @@ export default function LoginForm() {
         saveAccessToken(response.accessToken);
         console.log(response.user);
         router.push("/");
-      } else {
-        console.error("Login failed:", response?.message);
       }
+      setIsLoading(false);
     } catch (error) {
       console.error("Error submitting form:", error);
+      showToast("error", "Email or password incorrect !");
+    } finally {
+      setIsLoading(false);
     }
   };
 

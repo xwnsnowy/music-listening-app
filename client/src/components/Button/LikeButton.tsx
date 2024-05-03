@@ -38,9 +38,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ song }) => {
   const handleClick = async () => {
     if (isLiked) {
       await removeFromFavorite(user?._id!, song._id);
-      console.log("UnLike");
     } else {
-      console.log("like");
       await addToFavorite({ userId: user?._id!, song: song });
     }
     setIsLiked((prevIsLiked) => !prevIsLiked);

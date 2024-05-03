@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import MediaItem from "@/components/MediaItem/MediaItem";
 import { useFetchAllArtists } from "@/hooks/useGetAllArtists";
 import { Songs } from "@/types/types";
@@ -20,10 +20,34 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const playerRef = useRef<ReactPlayer | null>(null);
+  const youtubeLinks = [
+    "https://www.youtube.com/watch?v=U6cPjurCOmQ&pp=ygULbXVzaWMgc2hvcnQ%3D",
+    "https://www.youtube.com/watch?v=LsT3etnkRAY&pp=ygULbXVzaWMgc2hvcnQ%3D",
+    "https://www.youtube.com/watch?v=M-mtdN6R3bQ",
+    "https://www.youtube.com/watch?v=EnCTpHUq52M&pp=ygULbXVzaWMgc2hvcnQ%3D",
+    "https://www.youtube.com/watch?v=y9KOutRjymA",
+  ];
+
+  const [currentSongUrl, setCurrentSongUrl] = useState("");
 
   // console.log(
   //   ReactPlayer.canPlay("https://www.youtube.com/watch?v=M-mtdN6R3bQ")
   // );
+
+  useEffect(() => {
+    if (song._id != null) {
+      setIsPlaying(true);
+      const randomIndex = Math.floor(Math.random() * youtubeLinks.length);
+      const randomYoutubeLink = youtubeLinks[randomIndex];
+      setCurrentSongUrl(randomYoutubeLink);
+    }
+  }, [song._id]);
+
+  useEffect(() => {
+    if (song._id != null) {
+      setIsPlaying(true);
+    }
+  }, [song._id]);
 
   console.log(isPlaying);
   console.log(volume);
@@ -89,7 +113,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           data={song}
         />
       </div>
-
       {/* Mobile Controller */}
       <div className="flex md:hidden col-auto justify-end items-center">
         <div
@@ -99,7 +122,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           <PlayIcon className="text-black" size={20} />
         </div>
       </div>
-
       {/* Desktop Controller */}
       <div className="hidden h-full md:flex justify-center items-center w-full max-w-[720px] gap-x-6">
         <FaBackwardStep
@@ -119,7 +141,6 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           className="text-secondaryColor cursor-pointer hover:text-primaryColor transition"
         />
       </div>
-
       {/* Volume  */}
       <div className="hidden md:flex justify-end w-full ">
         <div className="flex items-center gap-x-2 w-[120px]">
@@ -136,10 +157,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
           />
         </div>
       </div>
-
       {/* React Player */}
       <ReactPlayer
-        url="https://www.youtube.com/watch?v=M-mtdN6R3bQ"
+        url={currentSongUrl}
         playing={isPlaying}
         volume={volume}
         ref={playerRef}

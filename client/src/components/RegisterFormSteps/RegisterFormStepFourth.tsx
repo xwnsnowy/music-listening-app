@@ -29,9 +29,14 @@ import Link from "next/link";
 import { signup } from "@/services/authServices";
 import { useRouter } from "next/navigation";
 import { RegisterStepFourth } from "@/types/types";
+import { useToast } from "@/hooks/useToastProvider";
+import { Truculenta } from "next/font/google";
+import { useState } from "react";
 
 export default function RegisterFormStepFourth() {
   const router = useRouter();
+  const { showToast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const email = useAppSelector(selectEmail);
   const password = useAppSelector(selectPassword);
@@ -56,12 +61,19 @@ export default function RegisterFormStepFourth() {
 
   const onSubmit: SubmitHandler<RegisterStepFourth> = async (data) => {
     try {
+      setIsLoading(true);
+
       await signup(userData);
       console.log("Registration successful");
 
       router.push("/login");
+      setIsLoading(false);
+      showToast("success", "Singup Spotify account succesfully !");
     } catch (error) {
       console.error("Error submitting form:", error);
+      showToast("error", "Error while signup account !");
+    } finally {
+      setIsLoading(false);
     }
   };
 

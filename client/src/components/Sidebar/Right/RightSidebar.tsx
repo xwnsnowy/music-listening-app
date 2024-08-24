@@ -68,7 +68,7 @@ const RightSidebar = () => {
         <FaUsers size={20} className="text-neutral-400 text-2xl" />
       </Link>
       <Link
-        href="/songs"
+        href="/"
         className="bg-transparent placeholder-zinc-200 py-2 hover:scale-110 transition"
       >
         <BsMusicNoteList size={20} className="text-neutral-400 text-2xl" />
